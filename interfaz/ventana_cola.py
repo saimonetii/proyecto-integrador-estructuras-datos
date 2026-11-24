@@ -103,7 +103,7 @@ class VentanaCola:
         espacio = (ancho - 2 * margen) / n
         y1, y2 = 45, 115
 
-        self.lbl_capacidad.config(text=f"Capacidad: {len(self.cola.items)}/{CAPACIDAD_MAXIMA}")
+        self.lbl_capacidad.config(text=f"Capacidad: {len(self.cola.items)}/{self.cola.capacidad}")
 
         c.create_text(margen - 10, (y1 + y2) / 2, text="FRENTE\n(sale)", anchor="e",
                       font=e.F_NEGRITA, fill=e.EXITO, justify="center")
