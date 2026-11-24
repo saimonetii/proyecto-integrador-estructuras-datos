@@ -72,7 +72,5 @@ Este proyecto junta todo lo que vimos en la materia, desde estructuras lineales 
 
 ## Integrantes
 
-- Samuel Coronado
-- *Agregar a los demás integrantes del equipo*
 
 Universidad Anáhuac Mayab · Estructuras de Datos
