@@ -14,10 +14,10 @@ El programa tiene cuatro clases:
 
 | Clase | Qué guarda | Qué representa |
 |-------|------------|----------------|
-| `Producto` | ID, nombre y precio | Un producto del catálogo |
-| `ElementoCarrito` | Un producto y su cantidad, y calcula su subtotal | Una línea del carrito |
-| `Carrito` | Una lista de `ElementoCarrito` | El carrito completo |
-| `SistemaCarrito` | El catálogo, que es una lista de `Producto`, y el carrito | El programa con su menú |
+| Producto | ID, nombre y precio | Un producto del catálogo |
+| ElementoCarrito | Un producto y su cantidad, y calcula su subtotal | Una línea del carrito |
+| Carrito | Una lista de ElementoCarrito | El carrito completo |
+| SistemaCarrito | El catálogo, que es una lista de Producto, y el carrito | El programa con su menú |
 
 `Producto` y `ElementoCarrito` usan `@dataclass`, que hace que Python genere automáticamente el constructor con los atributos que se declaran.
 
@@ -35,20 +35,20 @@ Todas las búsquedas son lineales, es decir, revisan los elementos uno por uno h
 
 | Método | Dónde busca | Cómo compara |
 |--------|-------------|--------------|
-| `buscar_producto_por_id` | Catálogo | El ID tiene que ser igual |
-| `buscar_productos_por_nombre` | Catálogo | El texto tiene que estar dentro del nombre, sin importar mayúsculas |
-| `Carrito.buscar_por_id` | Carrito | El ID tiene que ser igual |
-| `Carrito.buscar_por_nombre` | Carrito | El nombre tiene que ser exacto, sin importar mayúsculas |
+| buscar_producto_por_id | Catálogo | El ID tiene que ser igual |
+| buscar_productos_por_nombre | Catálogo | El texto tiene que estar dentro del nombre, sin importar mayúsculas |
+| Carrito.buscar_por_id | Carrito | El ID tiene que ser igual |
+| Carrito.buscar_por_nombre | Carrito | El nombre tiene que ser exacto, sin importar mayúsculas |
 
 Y estas son las operaciones del carrito:
 
 | Método | Qué hace | Complejidad |
 |--------|----------|-------------|
-| `agregar_producto` | Si el producto ya está en el carrito suma la cantidad, si no agrega una línea nueva | O(n) |
-| `modificar_cantidad` | Cambia la cantidad de una línea | O(1) |
-| `eliminar_producto` | Quita una línea del carrito | O(n) |
-| `vaciar` | Borra todo el carrito | O(n) |
-| `calcular_total` | Suma el subtotal de cada línea, que es precio por cantidad | O(n) |
+| agregar_producto | Si el producto ya está en el carrito suma la cantidad, si no agrega una línea nueva | O(n) |
+| modificar_cantidad | Cambia la cantidad de una línea | O(1) |
+| eliminar_producto | Quita una línea del carrito | O(n) |
+| vaciar | Borra todo el carrito | O(n) |
+| calcular_total | Suma el subtotal de cada línea, que es precio por cantidad | O(n) |
 
 ## Ejemplo paso a paso
 

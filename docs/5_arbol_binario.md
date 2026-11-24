@@ -26,12 +26,12 @@ La clase `Nodo` guarda la matrícula, el nombre y las referencias a sus dos hijo
 
 | Método | Qué hace | Si está balanceado | En el peor caso |
 |--------|----------|--------------------|-----------------|
-| `insertar` | Baja desde la raíz, a la izquierda si es menor y a la derecha si es mayor, hasta encontrar un lugar vacío. Si la matrícula ya existe no la agrega | O(log n) | O(n) |
-| `buscar` | Baja igual que insertar y regresa el alumno y el camino que recorrió | O(log n) | O(n) |
-| `eliminar` | Quita al alumno según el caso en el que esté | O(log n) | O(n) |
-| `inorden`, `preorden`, `postorden` | Recorren todo el árbol | O(n) | O(n) |
-| `altura` | Cuenta los niveles del árbol | O(n) | O(n) |
-| `minimo` y `maximo` | Bajan siempre a la izquierda o siempre a la derecha | O(log n) | O(n) |
+| insertar | Baja desde la raíz, a la izquierda si es menor y a la derecha si es mayor, hasta encontrar un lugar vacío. Si la matrícula ya existe no la agrega | O(log n) | O(n) |
+| buscar | Baja igual que insertar y regresa el alumno y el camino que recorrió | O(log n) | O(n) |
+| eliminar | Quita al alumno según el caso en el que esté | O(log n) | O(n) |
+| inorden, preorden, postorden | Recorren todo el árbol | O(n) | O(n) |
+| altura | Cuenta los niveles del árbol | O(n) | O(n) |
+| minimo y maximo | Bajan siempre a la izquierda o siempre a la derecha | O(log n) | O(n) |
 
 Para eliminar hay tres casos:
 

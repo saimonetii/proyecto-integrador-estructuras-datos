@@ -16,11 +16,11 @@ La clase `Pila` guarda sus elementos en una lista de Python, y el final de la li
 
 | Método | Qué hace | Cómo lo hace | Complejidad |
 |--------|----------|--------------|-------------|
-| `apilar(e)` | Pone un elemento en el tope | `self.elementos.append(e)` | O(1) |
-| `desapilar()` | Quita y regresa el tope | `self.elementos.pop()` | O(1) |
-| `ver_tope()` | Regresa el tope sin quitarlo | `self.elementos[-1]` | O(1) |
-| `esta_vacia()` | Dice si la pila no tiene elementos | `len(self.elementos) == 0` | O(1) |
-| `vaciar()` | Borra todos los elementos | `self.elementos = []` | O(1) |
+| apilar(e) | Pone un elemento en el tope | self.elementos.append(e) | O(1) |
+| desapilar() | Quita y regresa el tope | self.elementos.pop() | O(1) |
+| ver_tope() | Regresa el tope sin quitarlo | self.elementos[-1] | O(1) |
+| esta_vacia() | Dice si la pila no tiene elementos | len(self.elementos) == 0 | O(1) |
+| vaciar() | Borra todos los elementos | self.elementos = [] | O(1) |
 
 La clase `NavegadorWeb` usa dos pilas y una variable:
 

@@ -10,12 +10,12 @@ Lo más importante es que los códigos originales se unieron sin cambiarlos. La 
 
 | # | Proyecto | Estructura de datos | Archivo | Documentación |
 |---|----------|---------------------|---------|---------------|
-| 1 | Navegador web | Pila | `proyectos/p1_navegador_web.py` | [Ver documento](docs/1_navegador_pila.md) |
-| 2 | Resistencias eléctricas | Arreglos y listas | `proyectos/p2_resistencias.py` | [Ver documento](docs/2_resistencias_arreglos.md) |
-| 3 | Cola de impresión | Cola | `proyectos/p3_cola_impresion.py` | [Ver documento](docs/3_cola_impresion.md) |
-| 4 | Carrito de compras | Listas de objetos | `proyectos/p4_carrito_compras.py` | [Ver documento](docs/4_carrito_listas.md) |
-| 5 | Directorio de alumnos | Árbol binario de búsqueda | `proyectos/p5_arbol_alumnos.py` | [Ver documento](docs/5_arbol_binario.md) |
-| 6 | Ruta Mágica | Grafo y algoritmo de Dijkstra | `proyectos/p6_pueblos_magicos.py` | [Ver documento](docs/6_grafo_dijkstra.md) |
+| 1 | Navegador web | Pila | proyectos/p1_navegador_web.py | [Ver documento](docs/1_navegador_pila.md) |
+| 2 | Resistencias eléctricas | Arreglos y listas | proyectos/p2_resistencias.py | [Ver documento](docs/2_resistencias_arreglos.md) |
+| 3 | Cola de impresión | Cola | proyectos/p3_cola_impresion.py | [Ver documento](docs/3_cola_impresion.md) |
+| 4 | Carrito de compras | Listas de objetos | proyectos/p4_carrito_compras.py | [Ver documento](docs/4_carrito_listas.md) |
+| 5 | Directorio de alumnos | Árbol binario de búsqueda | proyectos/p5_arbol_alumnos.py | [Ver documento](docs/5_arbol_binario.md) |
+| 6 | Ruta Mágica | Grafo y algoritmo de Dijkstra | proyectos/p6_pueblos_magicos.py | [Ver documento](docs/6_grafo_dijkstra.md) |
 
 ## Cómo ejecutarlo
 
@@ -43,10 +43,10 @@ proyecto-integrador-estructuras-datos/
 
 | Carpeta o archivo | Qué contiene |
 |-------------------|--------------|
-| `Main1.py` | El menú principal con las seis opciones y el modo de consola |
-| `proyectos/` | Los seis códigos con sus clases y su menú de consola, tal como se entregaron. El proyecto 5 se hizo nuevo para el integrador |
-| `interfaz/` | Las ventanas gráficas de cada proyecto y el archivo `estilos.py` con los colores y fuentes |
-| `docs/` | Un documento por proyecto que explica el código |
+| Main1.py | El menú principal con las seis opciones y el modo de consola |
+| proyectos/ | Los seis códigos con sus clases y su menú de consola, tal como se entregaron. El proyecto 5 se hizo nuevo para el integrador |
+| interfaz/ | Las ventanas gráficas de cada proyecto y el archivo estilos.py con los colores y fuentes |
+| docs/ | Un documento por proyecto que explica el código |
 
 La idea principal es separar la lógica de la interfaz. Las ventanas no vuelven a programar las estructuras, solo llaman a los métodos que ya existen. Por ejemplo, cuando se presiona el botón Back del navegador, la ventana llama al método `retroceder` de la clase original `NavegadorWeb` y después dibuja cómo quedaron las dos pilas.
 

@@ -16,17 +16,17 @@ El programa tiene dos constantes:
 
 | Constante | Valor | Para qué sirve |
 |-----------|-------|----------------|
-| `CAPACIDAD_MAXIMA` | 6 | Cuántos trabajos caben en la cola |
-| `COMPUTADORAS` | PC1, PC2, PC3, PC4, PC5 | Las computadoras que pueden mandar trabajos |
+| CAPACIDAD_MAXIMA | 6 | Cuántos trabajos caben en la cola |
+| COMPUTADORAS | PC1, PC2, PC3, PC4, PC5 | Las computadoras que pueden mandar trabajos |
 
 La clase `ColaImpresion` guarda los trabajos en una lista:
 
 | Método | Qué hace | Complejidad |
 |--------|----------|-------------|
-| `esta_vacia()` | Dice si no hay trabajos | O(1) |
-| `esta_llena()` | Dice si ya se llegó a la capacidad | O(1) |
-| `encolar(e)` | Si hay espacio agrega el trabajo al final y regresa True, si está llena regresa False | O(1) |
-| `desencolar()` | Quita y regresa el trabajo del frente, y si está vacía regresa None | O(n) |
+| esta_vacia() | Dice si no hay trabajos | O(1) |
+| esta_llena() | Dice si ya se llegó a la capacidad | O(1) |
+| encolar(e) | Si hay espacio agrega el trabajo al final y regresa True, si está llena regresa False | O(1) |
+| desencolar() | Quita y regresa el trabajo del frente, y si está vacía regresa None | O(n) |
 
 El menú de consola tiene cuatro opciones: agregar un trabajo de una PC elegida al azar con `random.choice`, agregar un trabajo escribiendo el nombre de la PC, imprimir el documento que está al frente y mostrar cómo va la cola.
 

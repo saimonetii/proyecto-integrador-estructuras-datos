@@ -14,10 +14,10 @@ El algoritmo lo creó el científico holandés Edsger W. Dijkstra en 1956 y lo p
 
 | Concepto | En el proyecto | Clase o atributo |
 |----------|----------------|------------------|
-| Vértice | Cada pueblo | `PuebloMagico`, con índice, nombre y clave |
-| Arista | Cada carretera | `Arista`, con destino y distancia |
-| Peso | Los kilómetros de la carretera | `distancia_km` |
-| No dirigido | Se puede ir en los dos sentidos | `bidireccional=True` |
+| Vértice | Cada pueblo | PuebloMagico, con índice, nombre y clave |
+| Arista | Cada carretera | Arista, con destino y distancia |
+| Peso | Los kilómetros de la carretera | distancia_km |
+| No dirigido | Se puede ir en los dos sentidos | bidireccional=True |
 
 El grafo tiene siete pueblos:
 
@@ -60,13 +60,13 @@ El método `dijkstra` sigue estos pasos:
 
 | Paso | Qué hace | Variable que usa |
 |------|----------|------------------|
-| 1 | Pone todas las distancias en infinito, menos la del origen, que vale 0 | `distancias` |
-| 2 | Prepara un registro de desde qué pueblo se llegó a cada uno | `anteriores` |
-| 3 | Usa una cola de prioridad que siempre entrega el pueblo más cercano | `cola_prioridad` con `heapq` |
-| 4 | Saca el pueblo más cercano. Si es un dato viejo lo ignora y si es el destino termina | `heappop` |
-| 5 | Revisa a sus vecinos y, si encuentra un camino más corto hacia alguno, lo actualiza | `heappush` |
-| 6 | Reconstruye la ruta desde el destino hacia atrás y la voltea | `camino.reverse()` |
-| 7 | Arma la lista de tramos con los kilómetros de cada uno | `tramos` |
+| 1 | Pone todas las distancias en infinito, menos la del origen, que vale 0 | distancias |
+| 2 | Prepara un registro de desde qué pueblo se llegó a cada uno | anteriores |
+| 3 | Usa una cola de prioridad que siempre entrega el pueblo más cercano | cola_prioridad con heapq |
+| 4 | Saca el pueblo más cercano. Si es un dato viejo lo ignora y si es el destino termina | heappop |
+| 5 | Revisa a sus vecinos y, si encuentra un camino más corto hacia alguno, lo actualiza | heappush |
+| 6 | Reconstruye la ruta desde el destino hacia atrás y la voltea | camino.reverse() |
+| 7 | Arma la lista de tramos con los kilómetros de cada uno | tramos |
 
 ## Ejemplo paso a paso
 

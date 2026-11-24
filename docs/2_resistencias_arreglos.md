@@ -12,8 +12,8 @@ La clase `Resistencia` tiene dos arreglos del mismo tamaño. Se les llama arregl
 
 | Dígito | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
 |--------|---|---|---|---|---|---|---|---|---|---|
-| `colores` | Negro | Marrón | Rojo | Naranja | Amarillo | Verde | Azul | Violeta | Gris | Blanco |
-| `codigos_hex` | #000000 | #8B4513 | #FF0000 | #FFA500 | #FFFF00 | #008000 | #0000FF | #EE82EE | #808080 | #FFFFFF |
+| colores | Negro | Marrón | Rojo | Naranja | Amarillo | Verde | Azul | Violeta | Gris | Blanco |
+| codigos_hex | #000000 | #8B4513 | #FF0000 | #FFA500 | #FFFF00 | #008000 | #0000FF | #EE82EE | #808080 | #FFFFFF |
 
 La ventaja de un arreglo es que llegar a una posición es inmediato. No hay que buscar el color, se va directo al índice.
 
@@ -21,10 +21,10 @@ La ventaja de un arreglo es que llegar a una posición es inmediato. No hay que 
 
 | Método | Qué hace | Complejidad |
 |--------|----------|-------------|
-| `obtener_colores(valor)` | Regresa dos tuplas, una con los nombres de las tres bandas y otra con sus colores | O(d), donde d es el número de dígitos |
-| `generar_resistencias_aleatorias(n)` | Crea una lista con n valores aleatorios entre 10 y 1,000,000,000 ohmios | O(n) |
-| `sumar_serie(lista)` | Suma todas las resistencias | O(n) |
-| `sumar_paralelo(lista)` | Suma los inversos y saca el inverso del resultado | O(n) |
+| obtener_colores(valor) | Regresa dos tuplas, una con los nombres de las tres bandas y otra con sus colores | O(d), donde d es el número de dígitos |
+| generar_resistencias_aleatorias(n) | Crea una lista con n valores aleatorios entre 10 y 1,000,000,000 ohmios | O(n) |
+| sumar_serie(lista) | Suma todas las resistencias | O(n) |
+| sumar_paralelo(lista) | Suma los inversos y saca el inverso del resultado | O(n) |
 
 Para obtener las bandas, el valor se convierte en texto. La primera banda es el primer dígito, la segunda banda es el segundo dígito y la tercera banda es el multiplicador, que es la cantidad de ceros que siguen.
 
