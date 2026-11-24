@@ -1,8 +1,4 @@
-"""Ventana gráfica del Proyecto 6: Ruta Mágica (grafo ponderado + Dijkstra).
 
-Usa `construir_grafo_puebla()` y el método `dijkstra()` del código original
-sin modificarlos. Esta ventana solo dibuja el grafo y pinta la ruta encontrada.
-"""
 
 import tkinter as tk
 from tkinter import ttk
@@ -10,9 +6,6 @@ from tkinter import ttk
 from proyectos.p6_pueblos_magicos import construir_grafo_puebla
 from interfaz import estilos as e
 
-# Posición de cada pueblo en el dibujo, como fracción del ancho y alto del
-# lienzo (0 = izquierda/arriba, 1 = derecha/abajo). Es un acomodo aproximado
-# parecido al mapa real de la Sierra Norte; el algoritmo NO usa estas posiciones.
 POSICIONES = {
     "Pahuatlan": (0.10, 0.08),
     "Xicotepec de Juarez": (0.45, 0.08),
@@ -23,7 +16,7 @@ POSICIONES = {
     "Tlatlauquitepec": (0.92, 0.90),
 }
 RADIO = 26
-# Pueblos cuyo nombre se escribe a la izquierda del círculo para no tapar aristas
+
 ETIQUETA_IZQUIERDA = {"Zacatlan de las Manzanas"}
 
 
@@ -34,8 +27,8 @@ def km_texto(km: float) -> str:
 
 class VentanaPueblos:
     def __init__(self, padre: tk.Misc):
-        self.grafo = construir_grafo_puebla()    # <- objeto del código original
-        self.ruta = []                           # lista de nombres de la ruta encontrada
+        self.grafo = construir_grafo_puebla()    
+        self.ruta = []                          
 
         self.ventana = tk.Toplevel(padre)
         self.ventana.title("Proyecto 6 - Ruta Mágica (Grafos y Dijkstra)")
@@ -49,7 +42,7 @@ class VentanaPueblos:
         cuerpo = tk.Frame(self.ventana, bg=e.FONDO, padx=16, pady=12)
         cuerpo.pack(fill="both", expand=True)
 
-        # ------------------------------------------------ controles y resultado
+        #controles y resultado
         izq = e.panel(cuerpo, "Consultar ruta más corta")
         izq.pack(side="left", fill="y", padx=(0, 10))
 
@@ -73,14 +66,14 @@ class VentanaPueblos:
                                  bg="#FAFBFC", wrap="word", state="disabled")
         self.resultado.pack(fill="both", expand=True)
 
-        # ------------------------------------------------ dibujo del grafo
+        #dibujo del grafo
         der = e.panel(cuerpo, "Mapa del grafo (distancias en km)")
         der.pack(side="left", fill="both", expand=True)
         self.canvas = tk.Canvas(der, bg="white", highlightthickness=0)
         self.canvas.pack(fill="both", expand=True)
         self.canvas.bind("<Configure>", lambda _evento: self.dibujar())
 
-    # ------------------------------------------------------------- acciones
+        #acciones
     def _escribir(self, texto: str):
         self.resultado.config(state="normal")
         self.resultado.delete("1.0", "end")
@@ -113,7 +106,7 @@ class VentanaPueblos:
         e.mensaje(self.estado, "Listo.")
         self.dibujar()
 
-    # --------------------------------------------------------------- dibujo
+    #dibujo
     def _posiciones(self, ancho, alto):
         margen_x, margen_y = 90, 50
         return {nombre: (margen_x + fx * (ancho - 2 * margen_x),
@@ -127,8 +120,6 @@ class VentanaPueblos:
         pos = self._posiciones(ancho, alto)
         tramos_ruta = {frozenset(par) for par in zip(self.ruta, self.ruta[1:])}
 
-        # Aristas (cada carretera aparece dos veces en la lista de adyacencia,
-        # una por sentido; con 'dibujadas' se dibuja solo una vez)
         dibujadas = set()
         for origen, aristas in self.grafo.adyacencia.items():
             for arista in aristas:
@@ -146,7 +137,7 @@ class VentanaPueblos:
                 c.create_text(mx, my, text=f"{km_texto(arista.distancia_km)} km",
                               font=e.F_PEQUENA, fill=e.TEXTO)
 
-        # Vértices
+        
         for nombre, pueblo in self.grafo.pueblos.items():
             x, y = pos[nombre]
             en_ruta = nombre in self.ruta
