@@ -1,34 +1,25 @@
-"""Colores, fuentes y pequeños ayudantes de Tkinter compartidos por todas las ventanas.
-
-Estilo clásico de Tkinter (fondo gris, botones normales, recuadros con título),
-parecido a la ventana del proyecto de Resistencias. Tenerlo en un solo lugar
-hace que las ventanas se vean iguales y que un cambio se haga solo aquí.
-"""
-
 import tkinter as tk
 
-# ----------------------------------------------------------------- COLORES
+
 FONDO = "#F0F0F0"          # gris clásico de las ventanas de Windows
-TARJETA = "#F0F0F0"        # fondo de los recuadros (igual que la ventana)
+TARJETA = "#F0F0F0"        # fondo de los recuadros
 BORDE = "#A0A0A0"
 TEXTO = "#000000"
 TEXTO_SUAVE = "#555555"
 PRIMARIO = "#0000AA"
 EXITO = "#006400"
 PELIGRO = "#B00000"
-RESALTE = "#FFFF00"        # amarillo para resaltar (tope, nodo encontrado, ruta...)
+RESALTE = "#FFFF00"       
 
-# Un color por proyecto (se usa en el título de cada ventana y en los dibujos)
 COLOR_PROYECTO = {
-    1: "#0000FF",  # Navegador - Pila
-    2: "#8B4513",  # Resistencias - Arreglos
-    3: "#008000",  # Cola de impresión - Cola
-    4: "#FF0000",  # Carrito - Listas
+    1: "#0000FF",  # Navegador
+    2: "#8B4513",  # Resistencias
+    3: "#008000",  # Cola de impresión
+    4: "#FF0000",  # Carrito
     5: "#800080",  # Árbol binario
-    6: "#FF8C00",  # Pueblos Mágicos - Grafo
+    6: "#FF8C00",  # Pueblos Mágicos
 }
 
-# ----------------------------------------------------------------- FUENTES
 FUENTE = "Segoe UI"
 F_TITULO = (FUENTE, 12, "bold")
 F_SUBTITULO = (FUENTE, 10, "bold")
