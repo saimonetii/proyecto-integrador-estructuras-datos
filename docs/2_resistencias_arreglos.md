@@ -57,8 +57,6 @@ def sumar_paralelo(self, resistencias):
 
 ## La ventana
 
-![Resistencias](capturas/2_resistencias.png)
-
 - Se escribe el valor y la cantidad `n`, y se presiona **Calcular**.
 - Las 3 etiquetas se pintan con el color de cada banda (texto blanco cuando el fondo es negro).
 - Si algo no es número, `except ValueError` muestra "Por favor ingresa números válidos.".

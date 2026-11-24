@@ -46,8 +46,6 @@ La cola es **acotada** (*bounded*): `esta_llena()` evita que se agreguen más de
 - Se dibujan los **6 lugares** de la cola con **FRENTE (sale)** a la izquierda y **FINAL (entra)** a la derecha; cada PC tiene su color.
 - **Historial de impresión**: lista con el orden en que se imprimieron los documentos, que demuestra el FIFO.
 
-![Cola de impresión](capturas/3_cola.png)
-
 ## Preguntas que podría hacer el profe
 
 - **¿Qué pasa si la cola está llena?** `encolar` regresa `False` y no agrega nada; el menú avisa "LLENA".

@@ -81,8 +81,6 @@ Con montículo binario: **O((V + E) log V)**, donde V = pueblos y E = carreteras
 - El panel **Resultado** muestra la distancia total, los tramos y la ruta completa, igual que la versión de consola.
 - La posición de los pueblos en el dibujo es aproximada (parecida al mapa real) y **solo sirve para dibujar**: el algoritmo no la usa.
 
-![Ruta Mágica](capturas/6_pueblos.png)
-
 ## Preguntas que podría hacer el profe
 
 - **¿Por qué se usa `heapq`?** Para sacar el pueblo más cercano en O(log V) en lugar de buscarlo recorriendo todos (O(V)).

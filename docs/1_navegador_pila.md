@@ -54,8 +54,6 @@ La pila usa una lista de Python y **el final de la lista es el tope**, porque ag
 - Los botones Back/Forward se **desactivan** cuando su pila está vacía.
 - Abajo se dibujan las **dos pilas** como cajas apiladas; la del tope está en amarillo con la etiqueta **← TOPE**.
 
-![Navegador](capturas/1_navegador.png)
-
 ## Preguntas que podría hacer el profe
 
 - **¿Por qué se vacía la pila adelante al visitar una página nueva?** Porque al abrir una página nueva se crea una "rama" nueva en el historial; las páginas a las que se podía avanzar ya no siguen a la actual. Así funcionan los navegadores reales.

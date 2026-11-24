@@ -65,8 +65,6 @@ Todas las búsquedas recorren la lista elemento por elemento (**búsqueda lineal
 - **Derecha:** el carrito con cantidad, precio unitario y subtotal. Al seleccionar una línea se puede **Modificar** la cantidad, **Eliminar** o **Vaciar carrito**.
 - Abajo: artículos totales, **Total** y **Finalizar compra**, que muestra el resumen.
 
-![Carrito](capturas/4_carrito.png)
-
 ## Preguntas que podría hacer el profe
 
 - **¿Por qué es una lista de objetos y no una lista de números?** Cada elemento guarda varios datos relacionados (producto, cantidad) y tiene sus propios métodos (`calcular_subtotal`).

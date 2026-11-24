@@ -2,8 +2,6 @@
 
 Aplicación en **Python + Tkinter** que junta en un solo programa los **6 proyectos** de la materia de Estructuras de Datos. Al ejecutarla aparece un menú gráfico con 6 opciones; cada opción abre la ventana de ese proyecto.
 
-![Menú principal](docs/capturas/0_menu.png)
-
 | # | Proyecto | Estructura de datos | Archivo original |
 |---|----------|---------------------|------------------|
 | 1 | Navegador web (Back / Forward) | **Pila** (LIFO) | `proyectos/p1_navegador_web.py` |
@@ -106,37 +104,25 @@ Cada proyecto tiene su propio documento en la carpeta [`docs/`](docs/) que expli
 Simula los botones **Back** y **Forward** de un navegador con dos pilas: `pila_atras` y `pila_adelante`. Visitar una página apila la actual en *atrás* y vacía *adelante*. La ventana dibuja las dos pilas y marca el **tope**.
 → [docs/1_navegador_pila.md](docs/1_navegador_pila.md)
 
-![Navegador](docs/capturas/1_navegador.png)
-
 ### 2. Resistencias eléctricas — Arreglos y listas
 Usa dos arreglos paralelos (nombres de colores y códigos hexadecimales) para obtener las **3 bandas de color** de una resistencia, y calcula la resistencia equivalente **en serie** y **en paralelo** de *n* resistencias aleatorias.
 → [docs/2_resistencias_arreglos.md](docs/2_resistencias_arreglos.md)
-
-![Resistencias](docs/capturas/2_resistencias.png)
 
 ### 3. Cola de impresión — Cola FIFO
 Cinco computadoras (PC1 a PC5) mandan trabajos a una impresora con **capacidad máxima de 6**. Se imprime siempre el primero que llegó. La ventana dibuja el **frente** y el **final** de la cola.
 → [docs/3_cola_impresion.md](docs/3_cola_impresion.md)
 
-![Cola de impresión](docs/capturas/3_cola.png)
-
 ### 4. Carrito de compras — Listas de objetos
 Catálogo de productos y carrito como listas de objetos (`Producto`, `ElementoCarrito`). Búsqueda por **ID** o por **nombre**, agregar, modificar cantidad, eliminar, vaciar y finalizar la compra con el total.
 → [docs/4_carrito_listas.md](docs/4_carrito_listas.md)
-
-![Carrito de compras](docs/capturas/4_carrito.png)
 
 ### 5. Directorio de alumnos — Árbol binario de búsqueda
 Guarda alumnos ordenados por **matrícula**: los menores a la izquierda y los mayores a la derecha. Permite insertar, buscar (mostrando el camino recorrido), eliminar (los 3 casos) y ver los recorridos **inorden, preorden y postorden** animados.
 → [docs/5_arbol_binario.md](docs/5_arbol_binario.md)
 
-![Árbol binario](docs/capturas/5_arbol_recorrido.png)
-
 ### 6. Ruta Mágica — Grafo + Dijkstra
 Los Pueblos Mágicos de la Sierra Norte de Puebla son los **vértices** y las carreteras con sus kilómetros son las **aristas**. El algoritmo de **Dijkstra** encuentra la ruta más corta y la ventana la pinta en el mapa.
 → [docs/6_grafo_dijkstra.md](docs/6_grafo_dijkstra.md)
-
-![Ruta Mágica](docs/capturas/6_pueblos.png)
 
 ---
 

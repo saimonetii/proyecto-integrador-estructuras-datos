@@ -92,8 +92,6 @@ El **peor caso** ocurre si se insertan las matrículas **ya ordenadas** (10, 20,
 - **Buscar** pinta en azul el **camino** y en amarillo el nodo encontrado.
 - Los **recorridos** se animan: cada nodo se pinta en orden y se le pone su número de visita.
 
-![Búsqueda en el árbol](capturas/5_arbol_busqueda.png)
-![Recorrido preorden](capturas/5_arbol_recorrido.png)
 
 ## Menú de consola (versión original)
 
