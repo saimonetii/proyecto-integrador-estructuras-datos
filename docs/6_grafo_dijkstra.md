@@ -1,27 +1,25 @@
-# Proyecto 6: Ruta Mágica con Grafos y Dijkstra
-
-[← Volver al README](../README.md) · Código: [`proyectos/p6_pueblos_magicos.py`](../proyectos/p6_pueblos_magicos.py) · Ventana: [`interfaz/ventana_pueblos.py`](../interfaz/ventana_pueblos.py)
+# Ruta Mágica con grafos y el algoritmo de Dijkstra
 
 ## Introducción
 
-Hablaremos del sexto proyecto: un programa que encuentra el **camino más corto en kilómetros** entre dos Pueblos Mágicos de la Sierra Norte de **Puebla**. Los pueblos y las carreteras que los unen forman un **grafo**, y para encontrar la mejor ruta se usa el **algoritmo de Dijkstra**, el mismo principio que usan las aplicaciones de mapas como Google Maps o Waze.
+En este proyecto hicimos un programa que encuentra el camino más corto en kilómetros entre dos Pueblos Mágicos de la Sierra Norte de Puebla. Los pueblos y las carreteras que los unen forman un grafo, y para encontrar la mejor ruta se usa el algoritmo de Dijkstra, que es la misma idea que usan las aplicaciones de mapas como Google Maps o Waze.
 
-## Origen
+## Los grafos y el algoritmo de Dijkstra
 
-Edsger W. Dijkstra, científico holandés, ideó el algoritmo en **1956** mientras trabajaba en el Centro Matemático de Ámsterdam y lo publicó en **1959**. En una entrevista de 2001 contó que se le ocurrió en una terraza de café mientras estaba de compras con su prometida, sin papel ni lápiz, y lo llamó "un invento de veinte minutos". Por otro lado, los Pueblos Mágicos son un programa de la Secretaría de Turismo de México que reconoce a pueblos con atractivos culturales e históricos, y Puebla tiene varios en la Sierra Norte, como Zacatlán, Chignahuapan y Cuetzalan.
+Un grafo está formado por vértices y aristas. En este proyecto cada pueblo es un vértice y cada carretera es una arista. El grafo es ponderado porque cada carretera tiene un peso, que son sus kilómetros, y es no dirigido porque cada carretera se puede recorrer en los dos sentidos.
 
-## Funcionamiento
+El algoritmo lo creó el científico holandés Edsger W. Dijkstra en 1956 y lo publicó en 1959. Él mismo contó años después que se le ocurrió en una terraza de café mientras estaba de compras con su prometida, sin papel ni lápiz, y que le tomó unos veinte minutos. Su idea es avanzar siempre por el lugar más cercano que todavía no se ha confirmado, y así se garantiza que cuando se llega al destino ya se encontró la ruta más corta.
 
-### El grafo
+## Cómo funciona el código
 
-| Concepto | En el proyecto | Clase |
-|----------|----------------|-------|
-| Vértice (nodo) | Cada pueblo | `PuebloMagico` (índice, nombre, clave como `ZAC`) |
-| Arista | Cada carretera | `Arista` (destino y `distancia_km`) |
-| Peso | Los kilómetros de cada carretera | `distancia_km` |
-| No dirigido | Se puede ir en los dos sentidos | `agregar_carretera(..., bidireccional=True)` |
+| Concepto | En el proyecto | Clase o atributo |
+|----------|----------------|------------------|
+| Vértice | Cada pueblo | `PuebloMagico`, con índice, nombre y clave |
+| Arista | Cada carretera | `Arista`, con destino y distancia |
+| Peso | Los kilómetros de la carretera | `distancia_km` |
+| No dirigido | Se puede ir en los dos sentidos | `bidireccional=True` |
 
-### Pueblos (7 vértices)
+El grafo tiene siete pueblos:
 
 | # | Pueblo | Clave |
 |---|--------|-------|
@@ -33,10 +31,10 @@ Edsger W. Dijkstra, científico holandés, ideó el algoritmo en **1956** mientr
 | 6 | Xicotepec de Juárez | XIC |
 | 7 | Pahuatlán | PAH |
 
-### Carreteras (10 aristas)
+Y diez carreteras:
 
-| Carretera | km |
-|-----------|----|
+| Carretera | Kilómetros |
+|-----------|------------|
 | Zacatlán – Chignahuapan | 22 |
 | Zacatlán – Tetela de Ocampo | 48 |
 | Chignahuapan – Tetela de Ocampo | 42 |
@@ -48,9 +46,7 @@ Edsger W. Dijkstra, científico holandés, ideó el algoritmo en **1956** mientr
 | Chignahuapan – Tlatlauquitepec | 90 |
 | Xicotepec – Cuetzalan | 115 |
 
-### Lista de adyacencia
-
-El grafo se guarda como un **diccionario** donde cada pueblo tiene la lista de carreteras que salen de él. Así solo se guarda memoria para las carreteras que existen, a diferencia de una matriz de adyacencia de 7 × 7.
+El grafo se guarda como una lista de adyacencia, que es un diccionario donde cada pueblo tiene la lista de carreteras que salen de él. Así solo se guarda memoria para las carreteras que existen.
 
 ```python
 self.adyacencia = {
@@ -60,64 +56,56 @@ self.adyacencia = {
 }
 ```
 
-### Algoritmo de Dijkstra paso a paso
+El método `dijkstra` sigue estos pasos:
 
-| Paso | Qué hace | Variable |
-|------|----------|----------|
-| 1 | Todas las distancias empiezan en infinito, menos el origen, que vale 0 | `distancias` |
-| 2 | Se guarda de qué pueblo se llegó a cada uno | `anteriores` |
-| 3 | Un **montículo mínimo** siempre entrega el pueblo más cercano que falta | `cola_prioridad` (`heapq`) |
-| 4 | Se saca el más cercano; si es un dato viejo se ignora (`continue`) y si es el destino se termina (`break`) | `heappop` |
-| 5 | Para cada vecino, si `distancia_actual + km` es mejor que la guardada, se actualiza ("relajar" la arista) | `heappush` |
-| 6 | Se reconstruye el camino desde el destino hacia atrás con `anteriores` y se invierte | `camino.reverse()` |
-| 7 | Se arman los tramos `(origen, destino, km)` para mostrarlos | `tramos` |
+| Paso | Qué hace | Variable que usa |
+|------|----------|------------------|
+| 1 | Pone todas las distancias en infinito, menos la del origen, que vale 0 | `distancias` |
+| 2 | Prepara un registro de desde qué pueblo se llegó a cada uno | `anteriores` |
+| 3 | Usa una cola de prioridad que siempre entrega el pueblo más cercano | `cola_prioridad` con `heapq` |
+| 4 | Saca el pueblo más cercano. Si es un dato viejo lo ignora y si es el destino termina | `heappop` |
+| 5 | Revisa a sus vecinos y, si encuentra un camino más corto hacia alguno, lo actualiza | `heappush` |
+| 6 | Reconstruye la ruta desde el destino hacia atrás y la voltea | `camino.reverse()` |
+| 7 | Arma la lista de tramos con los kilómetros de cada uno | `tramos` |
 
-### Ejemplo: Pahuatlán → Tlatlauquitepec
+## Ejemplo paso a paso
 
-| Ruta posible | Cálculo | Total |
-|--------------|---------|-------|
-| **Pahuatlán → Zacatlán → Chignahuapan → Tlatlauquitepec** | 60 + 22 + 90 | **172 km** ✅ |
-| Pahuatlán → Xicotepec → Cuetzalan → Tlatlauquitepec | 32 + 115 + 38 | 185 km |
-| Pahuatlán → Zacatlán → Tetela → Cuetzalan → Tlatlauquitepec | 60 + 48 + 68 + 38 | 214 km |
+Si se busca la ruta de Pahuatlán a Tlatlauquitepec, hay varias opciones:
 
-Dijkstra regresa la ruta de **172 km**.
+| Ruta | Suma | Total |
+|------|------|-------|
+| Pahuatlán, Zacatlán, Chignahuapan, Tlatlauquitepec | 60 + 22 + 90 | **172 km** |
+| Pahuatlán, Xicotepec, Cuetzalan, Tlatlauquitepec | 32 + 115 + 38 | 185 km |
+| Pahuatlán, Zacatlán, Tetela, Cuetzalan, Tlatlauquitepec | 60 + 48 + 68 + 38 | 214 km |
 
-### En la interfaz
+El algoritmo regresa la primera, con 172 kilómetros.
 
-Se eligen el origen y el destino en listas desplegables y se presiona **Calcular ruta (Dijkstra)**. El grafo se dibuja con círculos para los pueblos y líneas con los kilómetros, la ruta encontrada se pinta en naranja y el origen y el destino en amarillo. El panel de resultado muestra la distancia total, los tramos y la ruta completa. La posición de los pueblos en el dibujo es aproximada y solo sirve para dibujar; el algoritmo no la usa.
+## La ventana del proyecto
 
-## Problemas
+Se eligen el pueblo de origen y el de destino en dos listas y se presiona Calcular ruta. El grafo se dibuja con un círculo por pueblo y líneas con los kilómetros de cada carretera. La ruta encontrada se pinta de naranja y el origen y el destino de amarillo. A un lado aparece el resultado con la distancia total, los tramos y la ruta completa. La posición de los pueblos en el dibujo es aproximada y solo sirve para que se vea parecido al mapa, el algoritmo no la usa.
 
-| Problema | Explicación |
-|----------|-------------|
-| El grafo está fijo en el código | Para agregar un pueblo o carretera hay que modificar `construir_grafo_puebla()` |
-| Distancias aproximadas | Los kilómetros son aproximados para el proyecto, no medidos sobre carretera real |
-| No sirve con pesos negativos | Dijkstra supone que ningún tramo "resta" distancia |
-| Empates | Si hay dos rutas con la misma distancia, solo se muestra una |
+## Detalles a tener en cuenta
 
-## Solución
+- Los pueblos y las carreteras están escritos dentro del código, así que para agregar uno nuevo hay que modificar la función `construir_grafo_puebla`. Se podría mejorar leyéndolos desde un archivo.
+- Los kilómetros son aproximados para el proyecto.
+- Dijkstra solo funciona cuando ningún peso es negativo. Aquí no hay problema porque no existen kilómetros negativos.
+- Si hay dos rutas con la misma distancia, el programa muestra solo una.
 
-| Problema | Solución |
-|----------|----------|
-| Grafo fijo | Leer los pueblos y carreteras desde un archivo (CSV o JSON) para poder cambiarlos sin tocar el código |
-| Distancias | Se podrían obtener de una fuente oficial o de un servicio de mapas |
-| Pesos negativos | No aplica: no existen kilómetros negativos. Para grafos con pesos negativos existe el algoritmo de Bellman-Ford |
-| Empates | Para este proyecto basta con una ruta; se podría guardar una lista de anteriores para mostrar todas |
+## Preguntas que nos pueden hacer en la exposición
 
-## Forecast
-
-- **Optimista:** el destino está conectado directamente al origen y el algoritmo termina en pocos pasos gracias al `break`.
-- **Probable:** el algoritmo revisa parte del grafo antes de llegar al destino; su costo es O((V + E) log V), donde V son los pueblos y E las carreteras.
-- **Pesimista:** no existe ruta entre los dos pueblos y el algoritmo revisa todo lo que puede alcanzar antes de decir "No existe ruta conectada entre esos pueblos".
+- **¿Para qué sirve `heapq`?** Para sacar siempre el pueblo más cercano de forma rápida, sin tener que revisar todos cada vez.
+- **¿Para qué sirve `anteriores`?** Dijkstra calcula distancias, y `anteriores` permite reconstruir por qué pueblos se pasó.
+- **¿Qué pasa si no hay camino entre dos pueblos?** La distancia del destino se queda en infinito y el programa avisa que no existe una ruta conectada.
+- **¿Qué complejidad tiene?** Con la cola de prioridad es O((V + E) log V), donde V es el número de pueblos y E el número de carreteras.
 
 ## Conclusión
 
-Los grafos permiten representar relaciones que no son lineales ni jerárquicas, como un mapa de carreteras donde cualquier pueblo puede conectarse con varios. Dijkstra resuelve el problema de la ruta más corta de forma eficiente porque siempre avanza por el pueblo más cercano, y gracias al montículo (`heapq`) encuentra ese pueblo en O(log V). Este proyecto junta casi todo lo que vimos en el semestre: listas, diccionarios, una cola de prioridad y un algoritmo clásico aplicado a un problema real.
+Los grafos permiten representar relaciones que no son lineales ni jerárquicas, como un mapa de carreteras donde cada pueblo se conecta con varios. Dijkstra resuelve el problema de la ruta más corta de forma eficiente porque siempre avanza por el pueblo más cercano. Este proyecto junta casi todo lo que vimos en el semestre: listas, diccionarios, una cola de prioridad y un algoritmo clásico aplicado a un problema real de México.
 
 ## Fuentes
 
-- Dijkstra, E. W. (1959). A note on two problems in connexion with graphs. *Numerische Mathematik, 1*, 269–271.
-- Misa, T. J. y Frana, P. L. (2010). An interview with Edsger W. Dijkstra. *Communications of the ACM, 53*(8), 41–47.
+- Dijkstra, E. W. A note on two problems in connexion with graphs. *Numerische Mathematik*, vol. 1, pp. 269–271, 1959.
+- Misa, T. J. y Frana, P. L. An interview with Edsger W. Dijkstra. *Communications of the ACM*, vol. 53, núm. 8, pp. 41–47, 2010.
 - Python Software Foundation. *heapq — Heap queue algorithm*. https://docs.python.org/3/library/heapq.html
-- Cormen, T. H., Leiserson, C. E., Rivest, R. L. y Stein, C. (2022). *Introduction to Algorithms* (4.ª ed.), cap. 22 "Single-Source Shortest Paths". MIT Press.
+- Cormen, T. H., Leiserson, C. E., Rivest, R. L. y Stein, C. *Introduction to Algorithms*, 4.ª edición, capítulo 22. MIT Press, 2022.
 - Secretaría de Turismo. *Pueblos Mágicos*. https://www.gob.mx/sectur

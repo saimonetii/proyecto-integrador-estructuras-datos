@@ -1,30 +1,16 @@
-# Proyecto 5: Directorio de alumnos con Árbol Binario de Búsqueda
-
-[← Volver al README](../README.md) · Código: [`proyectos/p5_arbol_alumnos.py`](../proyectos/p5_arbol_alumnos.py) · Ventana: [`interfaz/ventana_arbol.py`](../interfaz/ventana_arbol.py)
+# Directorio de alumnos con árbol binario de búsqueda
 
 ## Introducción
 
-Hablaremos del quinto proyecto: un directorio de alumnos que guarda la **matrícula** y el **nombre** de cada uno en un **árbol binario de búsqueda** (ABB). A diferencia de las estructuras anteriores, que eran lineales, el árbol es una estructura **jerárquica**: permite buscar mucho más rápido que una lista y además mantiene los datos ordenados. El programa permite insertar, buscar, eliminar, ver los tres recorridos y algunas estadísticas.
+En este proyecto hicimos un directorio de alumnos que guarda la matrícula y el nombre de cada uno en un árbol binario de búsqueda. A diferencia de las estructuras de los proyectos anteriores, que eran lineales, el árbol es una estructura jerárquica que permite buscar mucho más rápido que una lista y además mantiene los datos ordenados. El programa permite insertar, buscar y eliminar alumnos, ver los tres recorridos del árbol y algunas estadísticas.
 
-## Origen
+## El árbol binario de búsqueda
 
-El árbol binario de búsqueda apareció en **1960**, cuando Conway Berners-Lee y David Wheeler lo usaron para guardar datos etiquetados en cintas magnéticas. Al mismo tiempo, P. F. Windley, Andrew Donald Booth, Andrew Colin y Thomas N. Hibbard lo descubrieron por su cuenta. La idea es la misma que la de la búsqueda binaria: en cada paso se descarta la mitad de los datos. Hoy se usa en bases de datos, sistemas de archivos y en los diccionarios ordenados de muchos lenguajes.
+Un árbol binario está formado por nodos, y cada nodo puede tener como máximo dos hijos, uno a la izquierda y otro a la derecha. El nodo de hasta arriba se llama raíz y los nodos que no tienen hijos se llaman hojas. Es de búsqueda porque cumple una regla en todos sus nodos: todo lo que está del lado izquierdo es menor y todo lo que está del lado derecho es mayor.
 
-## Funcionamiento
+Gracias a esa regla no hay que revisar todos los datos para encontrar uno, porque en cada nodo se decide si ir a la izquierda o a la derecha y se descarta la otra mitad. El árbol binario de búsqueda apareció en 1960 y lo descubrieron varias personas al mismo tiempo, entre ellas Thomas N. Hibbard, que publicó un estudio sobre él en 1962. Hoy se usa en bases de datos, sistemas de archivos y en los diccionarios ordenados de muchos lenguajes.
 
-### Conceptos
-
-| Concepto | Significado |
-|----------|-------------|
-| Nodo | Cada alumno guardado (matrícula, nombre, hijo izquierdo y derecho) |
-| Raíz | El primer nodo, el de hasta arriba |
-| Hoja | Un nodo sin hijos |
-| Altura | Número de niveles del árbol |
-| Regla del ABB | Todo lo del lado **izquierdo** es **menor** y todo lo del lado **derecho** es **mayor** |
-
-### Árbol de ejemplo
-
-El programa empieza con 7 alumnos para que el árbol no esté vacío:
+El programa empieza con siete alumnos de ejemplo para que el árbol no esté vacío:
 
 ```
               50 Ana
@@ -34,66 +20,61 @@ El programa empieza con 7 alumnos para que el árbol no esté vacío:
   20 Carlos 40 Maria 60 Jorge 80 Valeria
 ```
 
-### Clases y métodos
+## Cómo funciona el código
 
-| Método | Qué hace | Complejidad (balanceado / peor caso) |
-|--------|----------|--------------------------------------|
-| `insertar(matricula, nombre)` | Baja desde la raíz (menor → izquierda, mayor → derecha) hasta un hueco; regresa `False` si la matrícula ya existe | O(log n) / O(n) |
-| `buscar(matricula)` | Baja igual que insertar y regresa el nodo y el **camino recorrido** | O(log n) / O(n) |
-| `eliminar(matricula)` | Quita el nodo según los 3 casos | O(log n) / O(n) |
-| `inorden()`, `preorden()`, `postorden()` | Recorridos recursivos | O(n) |
-| `altura()` | `1 + max(altura izquierda, altura derecha)` | O(n) |
-| `minimo()` / `maximo()` | Bajar siempre a la izquierda / derecha | O(log n) / O(n) |
+La clase `Nodo` guarda la matrícula, el nombre y las referencias a sus dos hijos. La clase `ArbolBinarioBusqueda` guarda la raíz y la cantidad de alumnos.
 
-### Los 3 casos de eliminar
+| Método | Qué hace | Si está balanceado | En el peor caso |
+|--------|----------|--------------------|-----------------|
+| `insertar` | Baja desde la raíz, a la izquierda si es menor y a la derecha si es mayor, hasta encontrar un lugar vacío. Si la matrícula ya existe no la agrega | O(log n) | O(n) |
+| `buscar` | Baja igual que insertar y regresa el alumno y el camino que recorrió | O(log n) | O(n) |
+| `eliminar` | Quita al alumno según el caso en el que esté | O(log n) | O(n) |
+| `inorden`, `preorden`, `postorden` | Recorren todo el árbol | O(n) | O(n) |
+| `altura` | Cuenta los niveles del árbol | O(n) | O(n) |
+| `minimo` y `maximo` | Bajan siempre a la izquierda o siempre a la derecha | O(log n) | O(n) |
+
+Para eliminar hay tres casos:
 
 | Caso | Qué se hace | Ejemplo |
 |------|-------------|---------|
-| 1. El nodo es hoja | Se quita y ya | Eliminar 20 |
-| 2. Tiene un hijo | El hijo toma su lugar | Eliminar 30 después de quitar el 20 → el 40 sube |
-| 3. Tiene dos hijos | Se reemplaza por su **sucesor** (el menor del subárbol derecho) y luego se elimina el sucesor | Eliminar 50 → el 60 pasa a ser la raíz |
+| El nodo no tiene hijos | Se quita y ya | Eliminar el 20 |
+| El nodo tiene un hijo | El hijo toma su lugar | Eliminar el 30 después de quitar el 20, y el 40 sube |
+| El nodo tiene dos hijos | Se reemplaza por su sucesor, que es el menor del lado derecho, y después se elimina el sucesor | Eliminar el 50, y el 60 se vuelve la raíz |
 
-### Recorridos
+Los recorridos visitan todos los nodos en distinto orden:
 
-| Recorrido | Orden | Resultado con el árbol de ejemplo | Para qué sirve |
-|-----------|-------|-----------------------------------|----------------|
-| Inorden | Izquierdo → Raíz → Derecho | 20, 30, 40, 50, 60, 70, 80 | Sale **ordenado** |
-| Preorden | Raíz → Izquierdo → Derecho | 50, 30, 20, 40, 70, 60, 80 | Copiar el árbol con la misma forma |
-| Postorden | Izquierdo → Derecho → Raíz | 20, 40, 30, 60, 80, 70, 50 | Borrar el árbol (primero los hijos) |
+| Recorrido | Orden de visita | Resultado con el árbol de ejemplo | Para qué sirve |
+|-----------|-----------------|-----------------------------------|----------------|
+| Inorden | Izquierda, raíz, derecha | 20, 30, 40, 50, 60, 70, 80 | Saca los datos ordenados |
+| Preorden | Raíz, izquierda, derecha | 50, 30, 20, 40, 70, 60, 80 | Copiar el árbol con la misma forma |
+| Postorden | Izquierda, derecha, raíz | 20, 40, 30, 60, 80, 70, 50 | Borrar el árbol empezando por los hijos |
 
-### En la interfaz
+## Ejemplo paso a paso
 
-A la izquierda están los campos de matrícula y nombre con los botones Insertar, Buscar y Eliminar, los tres recorridos y las estadísticas. A la derecha se dibuja el árbol: cada nodo se coloca en **x** según su posición en inorden (así nunca se enciman) y en **y** según su nivel. Buscar pinta el camino en azul y el nodo encontrado en amarillo, y los recorridos se animan nodo por nodo con su número de visita.
+Si se inserta la matrícula 65, el programa la compara con la raíz: 65 es mayor que 50, así que va a la derecha. Luego 65 es menor que 70, así que va a la izquierda. Después 65 es mayor que 60, y como el lado derecho del 60 está vacío, ahí se queda. Si después se busca el 65, el camino recorrido es 50, 70, 60, 65, y se encuentra en cuatro comparaciones.
 
-## Problemas
+## La ventana del proyecto
 
-| Problema | Explicación |
-|----------|-------------|
-| El árbol se puede desbalancear | Si las matrículas se insertan ya ordenadas (10, 20, 30, 40…), cada nodo queda a la derecha del anterior y el árbol se vuelve una "lista", con búsquedas O(n) |
-| Límite de recursión | Los recorridos y `eliminar` son recursivos; Python permite cerca de 1,000 llamadas anidadas, así que un árbol muy desbalanceado con más de 1,000 niveles daría `RecursionError` |
-| No acepta matrículas repetidas | Si se intenta insertar una matrícula que ya existe, se rechaza |
+A la izquierda están los cuadros para escribir la matrícula y el nombre, los botones Insertar, Buscar y Eliminar, los botones de los tres recorridos y las estadísticas. A la derecha se dibuja el árbol. Cada nodo se acomoda de izquierda a derecha según su lugar en el recorrido inorden, así nunca se enciman, y de arriba hacia abajo según su nivel. Al buscar se pinta de azul el camino y de amarillo el alumno encontrado, y los recorridos se animan nodo por nodo mostrando el número de visita.
 
-## Solución
+## Detalles a tener en cuenta
 
-| Problema | Solución |
-|----------|----------|
-| Desbalance | Usar árboles que se balancean solos, como los **AVL** o los **rojo-negro**, que garantizan O(log n) |
-| Recursión | Con árboles balanceados la altura es pequeña (un árbol de un millón de nodos tiene unos 20 niveles); también se pueden escribir los recorridos con una pila en lugar de recursión |
-| Repetidas | Es lo correcto: la matrícula identifica a un solo alumno, por eso `insertar` regresa `False` y el programa avisa |
+- Si las matrículas se insertan ya ordenadas, como 10, 20, 30 y 40, cada nodo queda a la derecha del anterior y el árbol se vuelve una línea. En ese caso buscar ya no es rápido. Para evitarlo existen árboles que se balancean solos, como los AVL.
+- Los recorridos son recursivos, es decir, el método se llama a sí mismo. Python permite alrededor de mil llamadas anidadas, así que solo sería un problema con un árbol muy desbalanceado.
+- No se permiten matrículas repetidas, porque cada matrícula identifica a un solo alumno.
 
-## Forecast
+## Preguntas que nos pueden hacer en la exposición
 
-- **Optimista:** el árbol está balanceado y cada búsqueda descarta la mitad de los alumnos: con 1,000 alumnos se encuentra cualquiera en unas 10 comparaciones, O(log n).
-- **Probable:** las matrículas llegan en orden aleatorio y el árbol queda casi balanceado, con un costo muy cercano a O(log n).
-- **Pesimista:** las matrículas llegan ordenadas y el árbol se vuelve una línea: con 1,000 alumnos una búsqueda puede tomar 1,000 comparaciones, O(n).
+- **¿Por qué el recorrido inorden sale ordenado?** Porque primero visita todo lo menor, luego el nodo y al final todo lo mayor.
+- **¿Por qué en el caso de dos hijos se usa el sucesor?** Porque es el valor más pequeño que es mayor que el nodo, así que al ponerlo en su lugar se sigue cumpliendo la regla del árbol.
+- **¿Qué ventaja tiene sobre una lista?** En una lista buscar es O(n) y en un árbol balanceado es O(log n). Con mil alumnos, la lista puede tardar mil comparaciones y el árbol unas diez.
 
 ## Conclusión
 
-El árbol binario de búsqueda combina dos ventajas: busca rápido, como un arreglo ordenado, y permite insertar y eliminar sin mover todos los datos, como una lista. Con una sola regla (menores a la izquierda y mayores a la derecha) se obtienen búsquedas en O(log n) y datos siempre ordenados con el recorrido inorden. Su debilidad es el desbalance, y por eso existen versiones mejoradas como los árboles AVL.
+El árbol binario de búsqueda combina lo mejor de dos estructuras: busca rápido como un arreglo ordenado y permite insertar y eliminar sin mover todos los datos como una lista. Con una sola regla, menores a la izquierda y mayores a la derecha, se consiguen búsquedas muy rápidas y datos siempre ordenados. Su punto débil es que se puede desbalancear, y por eso existen versiones mejoradas como los árboles AVL.
 
 ## Fuentes
 
-- Hibbard, T. N. (1962). Some combinatorial properties of certain trees with applications to searching and sorting. *Journal of the ACM, 9*(1), 13–28.
-- Cormen, T. H., Leiserson, C. E., Rivest, R. L. y Stein, C. (2022). *Introduction to Algorithms* (4.ª ed.), cap. 12 "Binary Search Trees". MIT Press.
-- Knuth, D. E. (1998). *The Art of Computer Programming, Vol. 3: Sorting and Searching* (2.ª ed.), sección 6.2.2 "Binary Tree Searching". Addison-Wesley.
-- Python Software Foundation. *sys.getrecursionlimit*. https://docs.python.org/3/library/sys.html#sys.getrecursionlimit
+- Hibbard, T. N. Some combinatorial properties of certain trees with applications to searching and sorting. *Journal of the ACM*, vol. 9, núm. 1, pp. 13–28, 1962.
+- Cormen, T. H., Leiserson, C. E., Rivest, R. L. y Stein, C. *Introduction to Algorithms*, 4.ª edición, capítulo 12. MIT Press, 2022.
+- Knuth, D. E. *The Art of Computer Programming, Vol. 3: Sorting and Searching*, 2.ª edición, sección 6.2.2. Addison-Wesley, 1998.

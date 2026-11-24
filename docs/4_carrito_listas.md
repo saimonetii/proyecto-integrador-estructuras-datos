@@ -1,29 +1,27 @@
-# Proyecto 4: Carrito de compras con Listas de objetos
-
-[← Volver al README](../README.md) · Código: [`proyectos/p4_carrito_compras.py`](../proyectos/p4_carrito_compras.py) · Ventana: [`interfaz/ventana_carrito.py`](../interfaz/ventana_carrito.py)
+# Carrito de compras con listas de objetos
 
 ## Introducción
 
-Hablaremos del cuarto proyecto: un sistema de carrito de compras como el de cualquier tienda en línea. Hay un **catálogo** de productos y un **carrito** donde el cliente agrega lo que quiere comprar; se puede buscar por ID o por nombre, cambiar cantidades, eliminar productos, vaciar el carrito y finalizar la compra con el total a pagar. La estructura principal son las **listas de objetos** y la **búsqueda lineal**.
+En este proyecto hicimos un sistema de carrito de compras como el de cualquier tienda en línea. Hay un catálogo de productos y un carrito donde se agrega lo que se quiere comprar. Se puede buscar un producto por su ID o por su nombre, cambiar cantidades, eliminar productos, vaciar el carrito y finalizar la compra con el total a pagar. Las estructuras que se usan son las listas de objetos y la búsqueda lineal.
 
-## Origen
+## Las listas de objetos
 
-El carrito de compras es uno de los problemas más comunes en el comercio electrónico: cada línea del carrito no es un solo dato, sino un producto con su cantidad y su subtotal. Por eso no basta con una lista de números; se necesita una **lista de objetos**, donde cada objeto agrupa sus datos y sus propios métodos. En Python, las listas son arreglos dinámicos que pueden crecer y guardar cualquier tipo de objeto.
+En un carrito cada línea no es un solo dato, sino un producto con su cantidad y su subtotal. Por eso no basta con una lista de números y se necesita una lista de objetos, donde cada objeto agrupa sus datos y también sus propios métodos. En Python las listas pueden crecer todo lo que se necesite y guardar cualquier tipo de objeto, así que son perfectas para este problema.
 
-## Funcionamiento
+## Cómo funciona el código
 
-### Clases
+El programa tiene cuatro clases:
 
-| Clase | Atributos | Métodos | Qué representa |
-|-------|-----------|---------|----------------|
-| `Producto` (`@dataclass`) | `id_producto`, `nombre`, `precio` | — | Un producto del catálogo |
-| `ElementoCarrito` (`@dataclass`) | `producto`, `cantidad` | `calcular_subtotal()`, `actualizar_cantidad()` | Una línea del carrito |
-| `Carrito` | `elementos` (lista de `ElementoCarrito`) | buscar, agregar, modificar, eliminar, vaciar, totales | El carrito completo |
-| `SistemaCarrito` | `catalogo` (lista de `Producto`), `carrito` | menú, búsquedas en el catálogo | El programa |
+| Clase | Qué guarda | Qué representa |
+|-------|------------|----------------|
+| `Producto` | ID, nombre y precio | Un producto del catálogo |
+| `ElementoCarrito` | Un producto y su cantidad, y calcula su subtotal | Una línea del carrito |
+| `Carrito` | Una lista de `ElementoCarrito` | El carrito completo |
+| `SistemaCarrito` | El catálogo, que es una lista de `Producto`, y el carrito | El programa con su menú |
 
-`@dataclass` hace que Python genere automáticamente el `__init__` con los atributos declarados.
+`Producto` y `ElementoCarrito` usan `@dataclass`, que hace que Python genere automáticamente el constructor con los atributos que se declaran.
 
-### Catálogo
+El catálogo tiene cinco productos:
 
 | ID | Producto | Precio |
 |----|----------|--------|
@@ -33,68 +31,58 @@ El carrito de compras es uno de los problemas más comunes en el comercio electr
 | 104 | Arroz | $31.50 |
 | 105 | Manzanas | $49.90 |
 
-### Búsquedas (todas lineales)
+Todas las búsquedas son lineales, es decir, revisan los elementos uno por uno hasta encontrar el que buscan:
 
-| Método | Dónde busca | Criterio | Regresa |
-|--------|-------------|----------|---------|
-| `buscar_producto_por_id` | Catálogo | ID igual | Un producto o `None` |
-| `buscar_productos_por_nombre` | Catálogo | El texto **está dentro** del nombre, sin importar mayúsculas (`casefold()`) | Lista de coincidencias |
-| `Carrito.buscar_por_id` | Carrito | ID igual | Un elemento o `None` |
-| `Carrito.buscar_por_nombre` | Carrito | Nombre **exacto**, sin importar mayúsculas | Un elemento o `None` |
+| Método | Dónde busca | Cómo compara |
+|--------|-------------|--------------|
+| `buscar_producto_por_id` | Catálogo | El ID tiene que ser igual |
+| `buscar_productos_por_nombre` | Catálogo | El texto tiene que estar dentro del nombre, sin importar mayúsculas |
+| `Carrito.buscar_por_id` | Carrito | El ID tiene que ser igual |
+| `Carrito.buscar_por_nombre` | Carrito | El nombre tiene que ser exacto, sin importar mayúsculas |
 
-### Operaciones del carrito
+Y estas son las operaciones del carrito:
 
 | Método | Qué hace | Complejidad |
 |--------|----------|-------------|
-| `agregar_producto(p, cant)` | Si el producto ya está, suma la cantidad; si no, agrega una línea nueva | O(n) |
-| `modificar_cantidad(el, cant)` | Cambia la cantidad de una línea | O(1) |
-| `eliminar_producto(el)` | Quita la línea (`remove`) | O(n) |
-| `vaciar()` | Borra todo (`clear`) | O(n) |
-| `calcular_total()` | Suma de los subtotales (`precio × cantidad`) | O(n) |
+| `agregar_producto` | Si el producto ya está en el carrito suma la cantidad, si no agrega una línea nueva | O(n) |
+| `modificar_cantidad` | Cambia la cantidad de una línea | O(1) |
+| `eliminar_producto` | Quita una línea del carrito | O(n) |
+| `vaciar` | Borra todo el carrito | O(n) |
+| `calcular_total` | Suma el subtotal de cada línea, que es precio por cantidad | O(n) |
 
-### Ejemplo
+## Ejemplo paso a paso
 
 | Acción | Carrito | Total |
 |--------|---------|-------|
-| Agregar 2 Leche | Leche ×2 = $57.00 | $57.00 |
-| Agregar 1 Huevos | Leche ×2, Huevos ×1 | $115.00 |
-| Agregar 1 Leche otra vez | Leche ×**3** = $85.50, Huevos ×1 | $143.50 |
+| Agregar 2 Leche | Leche por 2 = $57.00 | $57.00 |
+| Agregar 1 Huevos | Leche por 2, Huevos por 1 | $115.00 |
+| Agregar 1 Leche otra vez | Leche por 3 = $85.50, Huevos por 1 | $143.50 |
 
-### En la interfaz
+Cuando se agrega un producto que ya estaba no se crea otra línea, solo aumenta la cantidad.
 
-A la izquierda está el catálogo en una tabla con un cuadro de búsqueda que filtra mientras se escribe (si se escribe un número busca por ID y si se escribe texto busca por nombre). A la derecha está el carrito con cantidad, precio unitario y subtotal, con los botones Modificar, Eliminar, Vaciar carrito y Finalizar compra.
+## La ventana del proyecto
 
-## Problemas
+A la izquierda está el catálogo en una tabla con un cuadro de búsqueda que filtra mientras se escribe. Si se escribe un número busca por ID y si se escribe texto busca por nombre. A la derecha está el carrito con la cantidad, el precio unitario y el subtotal de cada producto, y los botones Modificar, Eliminar, Vaciar carrito y Finalizar compra, que muestra el resumen con el total a pagar.
 
-| Problema | Explicación |
-|----------|-------------|
-| Búsqueda lineal | Para encontrar un producto se revisan uno por uno; con 5 productos no importa, pero con miles sería lento |
-| Precios con `float` | Los decimales en `float` pueden tener pequeños errores de redondeo (por ejemplo 0.1 + 0.2 = 0.30000000000000004) |
-| Búsquedas distintas | En el catálogo se busca por parte del nombre, pero en el carrito se necesita el nombre exacto |
-| Finalizar no vacía el carrito | Después del resumen final, el carrito sigue con los mismos productos |
+## Detalles a tener en cuenta
 
-## Solución
+- La búsqueda lineal es fácil de programar y con cinco productos es instantánea, pero con miles de productos sería lenta. En ese caso convendría usar un diccionario con el ID como llave.
+- Los precios se guardan como números decimales de tipo `float`, que pueden tener pequeños errores de redondeo. Como los totales se muestran con dos decimales, el error no se ve.
+- En el catálogo se puede buscar con una parte del nombre, pero en el carrito se necesita el nombre exacto. En la ventana esto no importa porque el producto se elige con un clic.
 
-| Problema | Solución |
-|----------|----------|
-| Búsqueda lineal | Usar un diccionario `{id: producto}`, donde buscar por ID es O(1) |
-| Precios con `float` | Usar `decimal.Decimal` para dinero; en este proyecto los totales se muestran con 2 decimales (`:.2f`), así que el error no se ve |
-| Búsquedas distintas | En la ventana el producto del carrito se elige con un clic en la tabla, así que no hay que escribir el nombre |
-| Finalizar | La ventana muestra el resumen y deja que el usuario decida si vacía el carrito |
+## Preguntas que nos pueden hacer en la exposición
 
-## Forecast
-
-- **Optimista:** el producto buscado es el primero de la lista y se encuentra en 1 comparación, O(1).
-- **Probable:** en promedio se revisa la mitad de la lista, n/2 comparaciones, que sigue siendo O(n).
-- **Pesimista:** el producto es el último o no existe y se revisa toda la lista, O(n). Con un catálogo de miles de productos convendría cambiar a un diccionario.
+- **¿Por qué una lista de objetos y no una lista de números?** Porque cada producto tiene varios datos relacionados y además su propio comportamiento, como calcular su subtotal.
+- **¿Cómo se evita tener el mismo producto dos veces?** Antes de agregar, el carrito busca el producto por su ID y si ya existe solo aumenta la cantidad.
+- **¿Qué tan rápida es la búsqueda?** Es O(n), porque en el peor caso revisa toda la lista.
 
 ## Conclusión
 
-Las listas de objetos permiten modelar cosas reales que tienen varios datos juntos, como un producto con su precio o una línea del carrito con su cantidad. Además, cada objeto puede tener su propio comportamiento, como `calcular_subtotal()`. La búsqueda lineal es fácil de programar y suficiente para catálogos pequeños, pero hay que saber que su costo crece con el número de productos.
+Las listas de objetos permiten representar cosas reales que tienen varios datos juntos, como un producto con su precio o una línea del carrito con su cantidad, y cada objeto puede tener su propio comportamiento. La búsqueda lineal es sencilla y suficiente para un catálogo pequeño, y es importante saber que su costo crece conforme crece el número de productos.
 
 ## Fuentes
 
 - Python Software Foundation. *dataclasses — Data Classes*. https://docs.python.org/3/library/dataclasses.html
 - Python Software Foundation. *Data Structures: More on Lists*. https://docs.python.org/3/tutorial/datastructures.html
 - Python Software Foundation. *Floating-Point Arithmetic: Issues and Limitations*. https://docs.python.org/3/tutorial/floatingpoint.html
-- Knuth, D. E. (1998). *The Art of Computer Programming, Vol. 3: Sorting and Searching* (2.ª ed.), sección 6.1 "Sequential Searching". Addison-Wesley.
+- Knuth, D. E. *The Art of Computer Programming, Vol. 3: Sorting and Searching*, 2.ª edición, sección 6.1. Addison-Wesley, 1998.

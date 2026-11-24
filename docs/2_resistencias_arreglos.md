@@ -1,44 +1,38 @@
-# Proyecto 2: Resistencias eléctricas con Arreglos y Listas
-
-[← Volver al README](../README.md) · Código: [`proyectos/p2_resistencias.py`](../proyectos/p2_resistencias.py)
+# Resistencias eléctricas con arreglos y listas
 
 ## Introducción
 
-Hablaremos del segundo proyecto, que une la programación con la electrónica. Las resistencias tienen bandas de colores que indican su valor en ohmios, y este programa hace dos cosas: a partir de un valor muestra sus **tres bandas de color**, y genera **n resistencias aleatorias** para calcular su resistencia equivalente **en serie** y **en paralelo**. La estructura principal son los **arreglos** (listas de Python) y las **tuplas**. Este proyecto ya tenía interfaz gráfica con Tkinter desde su entrega.
+En este proyecto unimos la programación con la electrónica. Las resistencias tienen bandas de colores que indican su valor en ohmios, y el programa hace dos cosas: a partir de un valor muestra sus tres bandas de color, y genera una cantidad de resistencias aleatorias para calcular su resistencia equivalente en serie y en paralelo. Las estructuras que se usan son los arreglos, las tuplas y las listas. Este proyecto ya tenía interfaz gráfica con Tkinter desde que se entregó, así que el menú principal lo abre tal cual.
 
-## Origen
+## El código de colores y los arreglos
 
-Las resistencias son tan pequeñas que no se les puede imprimir el número, por eso se usa un código de colores, estandarizado hoy en la norma internacional **IEC 60062**. Cada color representa un dígito del 0 al 9. Como los colores van en orden y cada uno corresponde a un número, la forma natural de guardarlos en un programa es un **arreglo**, donde el índice es el dígito.
+Las resistencias son tan pequeñas que no se les puede imprimir el número, por eso se usa un código de colores que hoy está definido en la norma internacional IEC 60062. Cada color representa un dígito del 0 al 9 y siempre van en el mismo orden. Por eso la forma más natural de guardarlos en un programa es un arreglo, donde la posición de cada color es su dígito.
 
-## Funcionamiento
+La clase `Resistencia` tiene dos arreglos del mismo tamaño. Se les llama arreglos paralelos porque la misma posición habla del mismo color: uno guarda el nombre y el otro el código hexadecimal que se usa para pintarlo en la ventana.
 
-### Arreglos paralelos
-
-La clase `Resistencia` tiene dos arreglos del mismo tamaño. Se llaman **paralelos** porque la misma posición habla del mismo color:
-
-| Índice (dígito) | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
-|-----------------|---|---|---|---|---|---|---|---|---|---|
+| Dígito | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
+|--------|---|---|---|---|---|---|---|---|---|---|
 | `colores` | Negro | Marrón | Rojo | Naranja | Amarillo | Verde | Azul | Violeta | Gris | Blanco |
 | `codigos_hex` | #000000 | #8B4513 | #FF0000 | #FFA500 | #FFFF00 | #008000 | #0000FF | #EE82EE | #808080 | #FFFFFF |
 
-Acceder a un arreglo por su índice es **O(1)**: no hay que buscar nada, se va directo a la posición.
+La ventaja de un arreglo es que llegar a una posición es inmediato. No hay que buscar el color, se va directo al índice.
 
-### Métodos
+## Cómo funciona el código
 
 | Método | Qué hace | Complejidad |
 |--------|----------|-------------|
-| `obtener_colores(valor)` | Regresa dos tuplas: los nombres de las 3 bandas y sus colores hexadecimales | O(d), d = número de dígitos |
-| `generar_resistencias_aleatorias(n)` | Crea una lista de `n` valores aleatorios entre 10 y 1,000,000,000 Ω | O(n) |
-| `sumar_serie(lista)` | Rt = R1 + R2 + … + Rn | O(n) |
-| `sumar_paralelo(lista)` | 1/Rt = 1/R1 + 1/R2 + … + 1/Rn | O(n) |
+| `obtener_colores(valor)` | Regresa dos tuplas, una con los nombres de las tres bandas y otra con sus colores | O(d), donde d es el número de dígitos |
+| `generar_resistencias_aleatorias(n)` | Crea una lista con n valores aleatorios entre 10 y 1,000,000,000 ohmios | O(n) |
+| `sumar_serie(lista)` | Suma todas las resistencias | O(n) |
+| `sumar_paralelo(lista)` | Suma los inversos y saca el inverso del resultado | O(n) |
 
-### Cómo se obtienen las bandas
+Para obtener las bandas, el valor se convierte en texto. La primera banda es el primer dígito, la segunda banda es el segundo dígito y la tercera banda es el multiplicador, que es la cantidad de ceros que siguen.
 
-| Banda | Significado | Ejemplo con 4700 Ω |
-|-------|-------------|--------------------|
-| 1.ª | Primer dígito | 4 → **Amarillo** |
-| 2.ª | Segundo dígito | 7 → **Violeta** |
-| 3.ª (multiplicador) | Cuántos ceros siguen (`len(valor) - 2`) | 2 ceros → **Rojo** |
+| Banda | Qué representa | Ejemplo con 4700 ohmios |
+|-------|----------------|-------------------------|
+| Primera | Primer dígito | 4, Amarillo |
+| Segunda | Segundo dígito | 7, Violeta |
+| Tercera | Número de ceros | 2 ceros, Rojo |
 
 ```python
 valor_str = str(valor)                  # "4700"
@@ -47,44 +41,33 @@ digito2 = int(valor_str[1])             # 7
 multiplicador = len(valor_str) - 2      # 2
 ```
 
-### Serie y paralelo
+Para las sumas se usan las fórmulas de la clase de circuitos:
 
-| Conexión | Fórmula | Resultado |
-|----------|---------|-----------|
-| Serie | Rt = R1 + R2 + … + Rn | Siempre es **mayor** que la resistencia más grande |
-| Paralelo | Rt = 1 / (1/R1 + 1/R2 + … + 1/Rn) | Siempre es **menor** que la resistencia más chica |
+| Conexión | Fórmula | Qué se observa |
+|----------|---------|----------------|
+| Serie | Rt = R1 + R2 + … + Rn | El resultado siempre es mayor que la resistencia más grande |
+| Paralelo | 1/Rt = 1/R1 + 1/R2 + … + 1/Rn | El resultado siempre es menor que la resistencia más chica |
 
-### En la interfaz
+## La ventana del proyecto
 
-Se escriben el valor y la cantidad `n` y se presiona **Calcular**. Las tres etiquetas se pintan con el color de cada banda (el texto va en blanco cuando el fondo es negro) y abajo aparecen la lista de resistencias y las dos sumas.
+Se escribe el valor de la resistencia y la cantidad de resistencias que se quieren generar, y se presiona Calcular. Las tres etiquetas se pintan con el color de cada banda y el texto se pone en blanco cuando el fondo es negro para que se pueda leer. Abajo aparecen la lista de resistencias generadas y las dos sumas.
 
-## Problemas
+## Detalles a tener en cuenta
 
-| Problema | Explicación |
-|----------|-------------|
-| Valores menores a 100 no se aceptan | Con 3 bandas el multiplicador mínimo es 1 (un cero), así que 47 Ω o 10 Ω marcan error aunque existen en la vida real |
-| Solo se usan 2 cifras | 4750 Ω se muestra igual que 4700 Ω, porque las bandas guardan solo los dos primeros dígitos |
-| Máximo 11 dígitos | Si el multiplicador es mayor que 9 ya no hay color para él |
-| No se podía importar en el integrador | El archivo crea su ventana `tk.Tk()` desde el inicio, así que al importarlo se abría solo |
+- Los valores menores a 100 no se aceptan, porque con tres bandas el multiplicador mínimo es un cero. En las resistencias reales se usan bandas doradas o plateadas para los valores pequeños.
+- Solo se usan los dos primeros dígitos, así que 4750 se muestra igual que 4700. Así funciona el código de tres bandas; para más precisión existe el de cuatro bandas.
+- Si el valor tiene más de 11 dígitos ya no hay color para el multiplicador y el programa muestra un mensaje de error.
+- Cuando se escribe algo que no es número, el programa lo detecta y pide números válidos.
 
-## Solución
+## Preguntas que nos pueden hacer en la exposición
 
-| Problema | Solución |
-|----------|----------|
-| Valores menores a 100 | En las resistencias reales se usa una banda **dorada** (×0.1) o **plateada** (×0.01) como multiplicador; se podría agregar a los arreglos |
-| Solo 2 cifras | Existe el código de **4 bandas** (3 cifras + multiplicador) para mayor precisión |
-| Máximo 11 dígitos | Se valida y se muestra un mensaje de error |
-| Importar en el integrador | `Main1.py` ejecuta el archivo original en su propio proceso con `subprocess`, sin modificarlo |
-
-## Forecast
-
-- **Optimista:** el valor tiene exactamente dos cifras significativas (por ejemplo 4700 o 220,000) y las bandas lo representan exacto.
-- **Probable:** el valor tiene más cifras (por ejemplo 4750) y las bandas lo redondean hacia abajo a 2 cifras; las sumas en serie y paralelo salen bien porque recorren la lista una sola vez, O(n).
-- **Pesimista:** el valor tiene menos de 3 dígitos o más de 11 y no se puede representar con 3 bandas.
+- **¿Dónde están los arreglos?** En `colores` y `codigos_hex`, que son arreglos paralelos. Las bandas se regresan como tuplas y las resistencias aleatorias se guardan en una lista.
+- **¿Por qué 4700 da Amarillo, Violeta y Rojo?** Porque el 4 es amarillo, el 7 es violeta y después vienen dos ceros, y el 2 es rojo.
+- **¿Por qué en paralelo el resultado es tan pequeño?** Porque al conectar resistencias en paralelo la corriente tiene más caminos para pasar, y eso siempre da una resistencia menor que la más chica.
 
 ## Conclusión
 
-Este proyecto demuestra que un **arreglo** es la estructura ideal cuando los datos tienen una posición fija: el dígito es directamente el índice, así que obtener el color es inmediato. Las **tuplas** sirven para regresar resultados que no deben cambiar y las **listas** para guardar un número variable de resistencias y sumarlas.
+Este proyecto demuestra que el arreglo es la estructura ideal cuando los datos tienen una posición fija, porque el dígito es directamente el índice y obtener el color es inmediato. Las tuplas sirven para regresar resultados que no deben cambiar y las listas para guardar una cantidad variable de resistencias y recorrerlas para sumarlas.
 
 ## Fuentes
 
