@@ -1,9 +1,3 @@
-"""Ventana gráfica del Proyecto 4: Carrito de compras (listas de objetos y búsqueda).
-
-Usa las clases originales `SistemaCarrito`, `Carrito`, `ElementoCarrito` y
-`Producto` sin modificarlas: el catálogo y las búsquedas vienen de
-`SistemaCarrito`, y las operaciones del carrito de `Carrito`.
-"""
 
 import tkinter as tk
 from tkinter import messagebox, ttk
@@ -14,8 +8,8 @@ from interfaz import estilos as e
 
 class VentanaCarrito:
     def __init__(self, padre: tk.Misc):
-        self.sistema = SistemaCarrito()          # <- objeto del código original
-        self.carrito = self.sistema.carrito      # lista de ElementoCarrito
+        self.sistema = SistemaCarrito()          
+        self.carrito = self.sistema.carrito      
 
         self.ventana = tk.Toplevel(padre)
         self.ventana.title("Proyecto 4 - Carrito de compras (Listas)")
@@ -37,7 +31,7 @@ class VentanaCarrito:
         self.mostrar_catalogo(self.sistema.catalogo)
         self.actualizar_carrito()
 
-    # ============================================================ CATÁLOGO
+    #CATÁLOGO
     def _armar_catalogo(self, cuerpo):
         izq = e.panel(cuerpo, "Catálogo de productos")
         izq.grid(row=0, column=0, sticky="nsew", padx=(0, 8))
@@ -80,10 +74,10 @@ class VentanaCarrito:
             self.mostrar_catalogo(self.sistema.catalogo)
             e.mensaje(self.estado, "Mostrando el catálogo completo.")
             return
-        if texto.isdigit():   # búsqueda por ID
+        if texto.isdigit():   
             producto = self.sistema.buscar_producto_por_id(int(texto))
             resultados = [producto] if producto else []
-        else:                 # búsqueda por nombre (o parte del nombre)
+        else:                 # búsqueda por nombre 
             resultados = self.sistema.buscar_productos_por_nombre(texto)
         self.mostrar_catalogo(resultados)
         if resultados:
@@ -120,7 +114,7 @@ class VentanaCarrito:
             e.mensaje(self.estado, f"{producto.nombre} se agregó al carrito.", "ok")
         self.actualizar_carrito(seleccionar=producto.id_producto)
 
-    # ============================================================= CARRITO
+    #CARRITO
     def _armar_carrito(self, cuerpo):
         der = e.panel(cuerpo, "Mi carrito")
         der.grid(row=0, column=1, sticky="nsew")
