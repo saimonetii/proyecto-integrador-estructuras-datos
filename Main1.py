@@ -50,58 +50,34 @@ class MenuPrincipal:
     def __init__(self):
         self.raiz = tk.Tk()
         self.raiz.title("Proyecto Integrador - Estructuras de Datos")
-        self.raiz.geometry("980x660")
-        self.raiz.minsize(900, 640)
+        self.raiz.geometry("520x420")
         self.raiz.configure(bg=e.FONDO)
         e.configurar_ttk(self.raiz)
 
         self.ventanas = {}           # número de proyecto -> ventana abierta
         self.proceso_resistencias = None
 
-        # Encabezado
-        arriba = tk.Frame(self.raiz, bg=e.PRIMARIO, padx=24, pady=16)
-        arriba.pack(fill="x")
-        tk.Label(arriba, text="Proyecto Integrador de Estructuras de Datos",
-                 font=e.F_TITULO, bg=e.PRIMARIO, fg="white").pack(anchor="w")
-        tk.Label(arriba, text="Elige un proyecto para abrirlo. Puedes tener varios abiertos a la vez.",
-                 font=e.F_NORMAL, bg=e.PRIMARIO, fg="white").pack(anchor="w")
+        tk.Label(self.raiz, text="Proyecto Integrador de Estructuras de Datos",
+                 font=e.F_TITULO, bg=e.FONDO).pack(pady=(12, 2))
+        tk.Label(self.raiz, text="Selecciona un proyecto:", font=e.F_NORMAL,
+                 bg=e.FONDO).pack(pady=(0, 8))
 
-        # Tarjetas 3 x 2
-        rejilla = tk.Frame(self.raiz, bg=e.FONDO, padx=18, pady=18)
-        rejilla.pack(fill="both", expand=True)
-        for i, datos in enumerate(PROYECTOS):
-            fila, columna = divmod(i, 3)
-            rejilla.columnconfigure(columna, weight=1, uniform="col")
-            rejilla.rowconfigure(fila, weight=1, uniform="fila")
-            self._tarjeta(rejilla, *datos).grid(row=fila, column=columna, sticky="nsew",
-                                                padx=8, pady=8)
+        # Un botón por proyecto, uno debajo del otro
+        marco = tk.Frame(self.raiz, bg=e.FONDO)
+        marco.pack()
+        for numero, titulo, estructura, descripcion in PROYECTOS:
+            tk.Button(marco, text=f"{numero}. {titulo}", width=28, font=e.F_NORMAL,
+                      fg=e.COLOR_PROYECTO[numero],
+                      command=lambda n=numero: self.abrir(n)).grid(
+                row=numero - 1, column=0, padx=5, pady=4, sticky="w")
+            tk.Label(marco, text=estructura, font=e.F_NORMAL, bg=e.FONDO,
+                     anchor="w").grid(row=numero - 1, column=1, padx=5, sticky="w")
 
-        # Pie
-        abajo = tk.Frame(self.raiz, bg=e.FONDO, padx=26)
-        abajo.pack(fill="x", pady=(0, 14))
-        tk.Label(abajo, text="Tip: con  python Main1.py --consola  se corren las versiones "
-                             "originales en la terminal.",
-                 font=e.F_PEQUENA, bg=e.FONDO, fg=e.TEXTO_SUAVE).pack(side="left")
-        e.boton(abajo, "Salir", self.raiz.destroy, color=e.PELIGRO).pack(side="right")
-
-    def _tarjeta(self, padre, numero, titulo, estructura, descripcion):
-        color = e.COLOR_PROYECTO[numero]
-        tarjeta = tk.Frame(padre, bg=e.TARJETA, highlightbackground=e.BORDE, highlightthickness=1)
-        tk.Frame(tarjeta, bg=color, height=6).pack(fill="x")
-        contenido = tk.Frame(tarjeta, bg=e.TARJETA, padx=14, pady=10)
-        contenido.pack(fill="both", expand=True)
-
-        tk.Label(contenido, text=str(numero), font=(e.FUENTE, 26, "bold"), bg=e.TARJETA,
-                 fg=color).pack(anchor="w")
-        tk.Label(contenido, text=titulo, font=e.F_SUBTITULO, bg=e.TARJETA,
-                 fg=e.TEXTO).pack(anchor="w")
-        tk.Label(contenido, text=estructura, font=e.F_NEGRITA, bg=e.TARJETA,
-                 fg=color).pack(anchor="w")
-        tk.Label(contenido, text=descripcion, font=e.F_PEQUENA, bg=e.TARJETA, fg=e.TEXTO_SUAVE,
-                 wraplength=260, justify="left").pack(anchor="w", pady=(4, 8))
-        e.boton(contenido, "Abrir", lambda: self.abrir(numero),
-                color=color).pack(anchor="w", side="bottom")
-        return tarjeta
+        tk.Label(self.raiz, text="Tip: con  python Main1.py --consola  se corren\n"
+                                 "las versiones originales en la terminal.",
+                 font=e.F_PEQUENA, bg=e.FONDO, fg=e.TEXTO_SUAVE).pack(pady=(14, 6))
+        tk.Button(self.raiz, text="Salir", width=10, font=e.F_NORMAL,
+                  command=self.raiz.destroy).pack(pady=6)
 
     def abrir(self, numero):
         # El proyecto 2 ya era una ventana Tkinter completa: se ejecuta su

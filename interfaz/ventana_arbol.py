@@ -69,7 +69,7 @@ class VentanaArbol:
         self.lbl_resultado = tk.Label(der, text="", bg=e.TARJETA, font=e.F_MONO,
                                       fg=e.PRIMARIO, anchor="w", justify="left", wraplength=640)
         self.lbl_resultado.pack(fill="x")
-        self.canvas = tk.Canvas(der, bg=e.TARJETA, highlightthickness=0)
+        self.canvas = tk.Canvas(der, bg="white", highlightthickness=0)
         self.canvas.pack(fill="both", expand=True)
         self.canvas.bind("<Configure>", lambda _evento: self.dibujar())
 

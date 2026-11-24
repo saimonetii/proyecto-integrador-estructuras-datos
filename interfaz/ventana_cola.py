@@ -52,7 +52,7 @@ class VentanaCola:
         dibujo.pack(fill="x", pady=10)
         self.lbl_capacidad = tk.Label(dibujo, font=e.F_NEGRITA, bg=e.TARJETA, fg=e.TEXTO)
         self.lbl_capacidad.pack(anchor="w")
-        self.canvas = tk.Canvas(dibujo, height=150, bg=e.TARJETA, highlightthickness=0)
+        self.canvas = tk.Canvas(dibujo, height=150, bg="white", highlightthickness=0)
         self.canvas.pack(fill="x")
         self.canvas.bind("<Configure>", lambda _evento: self.dibujar())
 

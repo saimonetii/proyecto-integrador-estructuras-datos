@@ -34,8 +34,8 @@ A esto se le llama **separar la lógica de la presentación**: la estructura de 
 
 ## 3. `Main1.py` paso a paso
 
-1. **`PROYECTOS`**: lista con número, nombre, estructura y descripción de cada proyecto. Con ella se dibujan las 6 tarjetas del menú (y el menú de consola), así no se repite texto.
-2. **`MenuPrincipal.__init__`**: crea la ventana raíz (`tk.Tk()`), el encabezado azul y una rejilla de 3 × 2 tarjetas.
+1. **`PROYECTOS`**: lista con número, nombre, estructura y descripción de cada proyecto. Con ella se crean los 6 botones del menú (y el menú de consola), así no se repite texto.
+2. **`MenuPrincipal.__init__`**: crea la ventana raíz (`tk.Tk()`), el título y los 6 botones (uno debajo del otro, cada uno con su estructura de datos al lado) con `grid()`.
 3. **`MenuPrincipal.abrir(numero)`**:
    - Si es el **2**, ejecuta `proyectos/p2_resistencias.py` con `subprocess.Popen`, porque ese archivo ya crea su propia ventana Tkinter al ejecutarse (crea `tk.Tk()` desde el inicio del archivo, así que no se puede importar sin que se abra).
    - Si la ventana del proyecto **ya está abierta**, solo la trae al frente (no abre otra).
@@ -51,7 +51,7 @@ class VentanaX:
     def __init__(self, padre):
         self.objeto = ClaseOriginal()           # 1. se crea el objeto del proyecto
         self.ventana = tk.Toplevel(padre)       # 2. se crea la ventana
-        e.encabezado(...)                       # 3. barra de color con el título
+        e.encabezado(...)                       # 3. título del proyecto
         self.estado = e.barra_estado(...)       # 4. barra inferior de mensajes
         ...                                     # 5. botones, tablas y Canvas
 
@@ -65,7 +65,7 @@ class VentanaX:
 - Los **mensajes** que en consola eran `print(...)` aquí aparecen en la **barra de estado** de abajo (verde si salió bien y rojo si hubo un error).
 - Los métodos originales todavía hacen sus `print`, que aparecen en la terminal desde donde se ejecutó `Main1.py`. Es normal y no afecta.
 - Los **dibujos** (pilas, cola, árbol, grafo) se hacen con `tk.Canvas` leyendo el estado del objeto: `pila.elementos`, `cola.items`, `arbol.raiz`, `grafo.adyacencia`.
-- **`estilos.py`** tiene los colores y funciones como `boton()`, `panel()` y `encabezado()` para que las 6 ventanas se vean iguales.
+- **`estilos.py`** tiene el estilo clásico de Tkinter (fondo gris, botones normales, recuadros `LabelFrame` con título), los colores y funciones como `boton()`, `panel()` y `encabezado()` para que las 6 ventanas se vean iguales.
 
 ## 5. ¿Por qué no se pegó todo en un solo `.py`?
 

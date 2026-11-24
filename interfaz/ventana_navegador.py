@@ -90,7 +90,7 @@ class VentanaNavegador:
     def _crear_pila(self, padre, titulo):
         marco = e.panel(padre, titulo)
         marco.pack(side="left", fill="both", expand=True, padx=(0, 8))
-        canvas = tk.Canvas(marco, bg=e.TARJETA, highlightthickness=0,
+        canvas = tk.Canvas(marco, bg="white", highlightthickness=0,
                            height=ALTO_CAJA * MAX_CAJAS + 20)
         canvas.pack(fill="both", expand=True)
         canvas.bind("<Configure>", lambda _evento: self.actualizar())

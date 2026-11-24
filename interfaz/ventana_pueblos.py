@@ -76,7 +76,7 @@ class VentanaPueblos:
         # ------------------------------------------------ dibujo del grafo
         der = e.panel(cuerpo, "Mapa del grafo (distancias en km)")
         der.pack(side="left", fill="both", expand=True)
-        self.canvas = tk.Canvas(der, bg=e.TARJETA, highlightthickness=0)
+        self.canvas = tk.Canvas(der, bg="white", highlightthickness=0)
         self.canvas.pack(fill="both", expand=True)
         self.canvas.bind("<Configure>", lambda _evento: self.dibujar())
 
@@ -141,7 +141,7 @@ class VentanaPueblos:
                 c.create_line(x1, y1, x2, y2, width=5 if en_ruta else 2,
                               fill=e.COLOR_PROYECTO[6] if en_ruta else "#B0BEC5")
                 mx, my = (x1 + x2) / 2, (y1 + y2) / 2
-                c.create_rectangle(mx - 22, my - 10, mx + 22, my + 10, fill=e.TARJETA,
+                c.create_rectangle(mx - 22, my - 10, mx + 22, my + 10, fill="white",
                                    outline=e.COLOR_PROYECTO[6] if en_ruta else e.BORDE)
                 c.create_text(mx, my, text=f"{km_texto(arista.distancia_km)} km",
                               font=e.F_PEQUENA, fill=e.TEXTO)
