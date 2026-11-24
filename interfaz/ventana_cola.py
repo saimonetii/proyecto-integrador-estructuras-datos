@@ -1,8 +1,4 @@
-"""Ventana gráfica del Proyecto 3: Cola de impresión (FIFO de capacidad limitada).
 
-Usa la clase original `ColaImpresion` y las constantes `CAPACIDAD_MAXIMA`
-y `COMPUTADORAS` sin modificarlas.
-"""
 
 import random
 import tkinter as tk
@@ -11,14 +7,14 @@ from tkinter import ttk
 from proyectos.p3_cola_impresion import CAPACIDAD_MAXIMA, COMPUTADORAS, ColaImpresion
 from interfaz import estilos as e
 
-# Un color por computadora para distinguir los trabajos en la cola
+
 COLOR_PC = {"PC1": "#90CAF9", "PC2": "#A5D6A7", "PC3": "#FFCC80",
             "PC4": "#CE93D8", "PC5": "#EF9A9A"}
 
 
 class VentanaCola:
     def __init__(self, padre: tk.Misc):
-        self.cola = ColaImpresion(CAPACIDAD_MAXIMA)  # <- objeto del código original
+        self.cola = ColaImpresion(CAPACIDAD_MAXIMA)  
         self.impresos = 0
 
         self.ventana = tk.Toplevel(padre)
@@ -65,7 +61,7 @@ class VentanaCola:
 
         self.dibujar()
 
-    # ------------------------------------------------------------ acciones
+    #acciones
     def _encolar(self, pc: str):
         if self.cola.esta_llena():
             e.mensaje(self.estado, "La cola de impresión está LLENA. Imprime un documento primero.",
@@ -93,7 +89,7 @@ class VentanaCola:
         e.mensaje(self.estado, f"Se imprimió el documento de {pc} (el que estaba al FRENTE).", "ok")
         self.dibujar()
 
-    # ------------------------------------------------------------- dibujo
+    #dibujo
     def dibujar(self):
         c = self.canvas
         c.delete("all")
