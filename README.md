@@ -29,7 +29,7 @@ python Main1.py             # menú gráfico
 python Main1.py --consola   # menú en la terminal con los programas originales
 ```
 
-Para abrirlo en VS Code se usa File → Open Folder, se elige la carpeta del proyecto, se abre `Main1.py` y se presiona el botón de ejecutar. Es importante abrir la carpeta completa y no solo el archivo, porque si no el programa no encuentra las carpetas `proyectos` e `interfaz`.
+Para abrirlo en VS Code se usa File, Open Folder, se elige la carpeta del proyecto, se abre `Main1.py` y se presiona el botón de ejecutar. Es importante abrir la carpeta completa y no solo el archivo, porque si no el programa no encuentra las carpetas `proyectos` e `interfaz`.
 
 ## Cómo está organizado
 
