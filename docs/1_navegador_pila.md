@@ -1,7 +1,5 @@
 # Proyecto 1: Navegador web con Pilas
 
-[← Volver al README](../README.md) · Código: [`proyectos/p1_navegador_web.py`](../proyectos/p1_navegador_web.py) · Ventana: [`interfaz/ventana_navegador.py`](../interfaz/ventana_navegador.py)
-
 ## Introducción
 
 Hablaremos del primer proyecto: un navegador web que simula los botones **Back** (regresar) y **Forward** (avanzar). Todos usamos estos botones a diario, pero detrás hay una estructura de datos muy sencilla: la **pila**. Con dos pilas y una variable para la página actual se puede guardar todo el historial y moverse hacia atrás y hacia adelante.
