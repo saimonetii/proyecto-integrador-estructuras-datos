@@ -1,9 +1,3 @@
-"""Ventana gráfica del Proyecto 5: Directorio de alumnos con Árbol Binario de Búsqueda.
-
-Usa la clase `ArbolBinarioBusqueda` de proyectos/p5_arbol_alumnos.py
-y dibuja el árbol en un Canvas.
-"""
-
 import tkinter as tk
 
 from proyectos.p5_arbol_alumnos import ArbolBinarioBusqueda, cargar_alumnos_ejemplo
@@ -19,9 +13,9 @@ class VentanaArbol:
     def __init__(self, padre: tk.Misc):
         self.arbol = ArbolBinarioBusqueda()
         cargar_alumnos_ejemplo(self.arbol)
-        self.resaltados = {}          # matrícula -> color con el que se pinta
-        self.animacion = None         # id del after() de la animación en curso
-        self.orden_visita = {}        # matrícula -> número de visita en un recorrido
+        self.resaltados = {}          
+        self.animacion = None       
+        self.orden_visita = {}       
 
         self.ventana = tk.Toplevel(padre)
         self.ventana.title("Proyecto 5 - Directorio de alumnos (Árbol binario de búsqueda)")
@@ -35,7 +29,6 @@ class VentanaArbol:
         cuerpo = tk.Frame(self.ventana, bg=e.FONDO, padx=16, pady=12)
         cuerpo.pack(fill="both", expand=True)
 
-        # ------------------------------------------------ panel de controles
         izq = e.panel(cuerpo, "Alumno")
         izq.pack(side="left", fill="y", padx=(0, 10))
 
@@ -63,7 +56,7 @@ class VentanaArbol:
         self.lbl_stats = tk.Label(izq, bg=e.TARJETA, font=e.F_NORMAL, justify="left", fg=e.TEXTO)
         self.lbl_stats.pack(anchor="w")
 
-        # ------------------------------------------------ dibujo del árbol
+        #dibujo del árbol
         der = e.panel(cuerpo, "Árbol")
         der.pack(side="left", fill="both", expand=True)
         self.lbl_resultado = tk.Label(der, text="", bg=e.TARJETA, font=e.F_MONO,
@@ -78,7 +71,7 @@ class VentanaArbol:
         self.ventana.protocol("WM_DELETE_WINDOW", self.cerrar)
         self.actualizar()
 
-    # ------------------------------------------------------------ utilidades
+   
     def _leer_matricula(self):
         texto = self.entrada_matricula.get().strip()
         if not texto.isdigit() or int(texto) <= 0:
@@ -105,7 +98,7 @@ class VentanaArbol:
             f"Mayor: {maximo if maximo else '-'}"))
         self.dibujar()
 
-    # ------------------------------------------------------------- acciones
+    #acciones
     def insertar(self):
         self._detener_animacion()
         matricula = self._leer_matricula()
@@ -184,7 +177,7 @@ class VentanaArbol:
 
         paso(0)
 
-    # --------------------------------------------------------------- dibujo
+    # dibujo
     def dibujar(self):
         c = self.canvas
         c.delete("all")
@@ -194,7 +187,7 @@ class VentanaArbol:
                           fill=e.TEXTO_SUAVE)
             return
 
-        # x según la posición en inorden (así nunca se enciman), y según el nivel
+        
         orden = self.arbol.inorden()
         paso_x = ancho / (len(orden) + 1)
         posiciones = {}
