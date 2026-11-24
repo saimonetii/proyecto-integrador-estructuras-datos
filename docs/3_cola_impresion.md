@@ -51,11 +51,6 @@ La ventana tiene un botón para agregar un trabajo de una PC al azar, una lista 
 - Cuando la cola está llena, los trabajos nuevos no se agregan y el programa avisa que está llena. Así se comporta una impresora real cuando su memoria se llena.
 - Si se escribe el nombre de la PC en minúsculas también funciona, porque el programa lo convierte a mayúsculas.
 
-## Preguntas que nos pueden hacer en la exposición
-
-- **¿Qué diferencia hay con la pila del proyecto 1?** En la pila sale el último que entró y en la cola sale el primero que entró.
-- **¿Qué pasa si la cola está llena?** El método `encolar` regresa False y no agrega nada, y el programa muestra que la cola está llena.
-- **¿Por qué tiene capacidad limitada?** Para parecerse a una impresora real, que solo puede guardar cierta cantidad de trabajos en espera.
 
 ## Conclusión
 

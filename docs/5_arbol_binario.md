@@ -63,11 +63,6 @@ A la izquierda están los cuadros para escribir la matrícula y el nombre, los b
 - Los recorridos son recursivos, es decir, el método se llama a sí mismo. Python permite alrededor de mil llamadas anidadas, así que solo sería un problema con un árbol muy desbalanceado.
 - No se permiten matrículas repetidas, porque cada matrícula identifica a un solo alumno.
 
-## Preguntas que nos pueden hacer en la exposición
-
-- **¿Por qué el recorrido inorden sale ordenado?** Porque primero visita todo lo menor, luego el nodo y al final todo lo mayor.
-- **¿Por qué en el caso de dos hijos se usa el sucesor?** Porque es el valor más pequeño que es mayor que el nodo, así que al ponerlo en su lugar se sigue cumpliendo la regla del árbol.
-- **¿Qué ventaja tiene sobre una lista?** En una lista buscar es O(n) y en un árbol balanceado es O(log n). Con mil alumnos, la lista puede tardar mil comparaciones y el árbol unas diez.
 
 ## Conclusión
 

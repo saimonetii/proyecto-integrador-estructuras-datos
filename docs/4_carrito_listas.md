@@ -70,11 +70,6 @@ A la izquierda está el catálogo en una tabla con un cuadro de búsqueda que fi
 - Los precios se guardan como números decimales de tipo `float`, que pueden tener pequeños errores de redondeo. Como los totales se muestran con dos decimales, el error no se ve.
 - En el catálogo se puede buscar con una parte del nombre, pero en el carrito se necesita el nombre exacto. En la ventana esto no importa porque el producto se elige con un clic.
 
-## Preguntas que nos pueden hacer en la exposición
-
-- **¿Por qué una lista de objetos y no una lista de números?** Porque cada producto tiene varios datos relacionados y además su propio comportamiento, como calcular su subtotal.
-- **¿Cómo se evita tener el mismo producto dos veces?** Antes de agregar, el carrito busca el producto por su ID y si ya existe solo aumenta la cantidad.
-- **¿Qué tan rápida es la búsqueda?** Es O(n), porque en el peor caso revisa toda la lista.
 
 ## Conclusión
 

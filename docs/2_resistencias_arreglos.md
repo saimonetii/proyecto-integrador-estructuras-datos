@@ -59,11 +59,6 @@ Se escribe el valor de la resistencia y la cantidad de resistencias que se quier
 - Si el valor tiene más de 11 dígitos ya no hay color para el multiplicador y el programa muestra un mensaje de error.
 - Cuando se escribe algo que no es número, el programa lo detecta y pide números válidos.
 
-## Preguntas que nos pueden hacer en la exposición
-
-- **¿Dónde están los arreglos?** En `colores` y `codigos_hex`, que son arreglos paralelos. Las bandas se regresan como tuplas y las resistencias aleatorias se guardan en una lista.
-- **¿Por qué 4700 da Amarillo, Violeta y Rojo?** Porque el 4 es amarillo, el 7 es violeta y después vienen dos ceros, y el 2 es rojo.
-- **¿Por qué en paralelo el resultado es tan pequeño?** Porque al conectar resistencias en paralelo la corriente tiene más caminos para pasar, y eso siempre da una resistencia menor que la más chica.
 
 ## Conclusión
 

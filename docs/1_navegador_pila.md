@@ -60,11 +60,6 @@ La ventana tiene los botones Back y Forward, un cuadro para escribir la direcci�
 - La pila de adelante se vacía cada vez que se visita una página nueva, porque a partir de ahí el historial toma otro camino y las páginas que seguían ya no tienen sentido. Así funcionan los navegadores reales.
 - El historial no tiene límite. Para este proyecto no es necesario, pero un navegador real guarda solo cierto número de páginas.
 
-## Preguntas que nos pueden hacer en la exposición
-
-- **¿Por qué el tope es el final de la lista y no el inicio?** Porque agregar y quitar al final de una lista es O(1), mientras que hacerlo al inicio es O(n) porque se tienen que recorrer todos los elementos.
-- **¿Qué pasa si se presiona Back sin historial?** El método revisa primero si la pila de atrás está vacía y solo muestra un mensaje, el programa no truena.
-- **¿Por qué se usan dos pilas?** Una guarda el camino hacia atrás y la otra el camino hacia adelante, y cada botón pasa la página actual de una a la otra.
 
 ## Conclusión
 

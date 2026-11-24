@@ -91,12 +91,6 @@ Se eligen el pueblo de origen y el de destino en dos listas y se presiona Calcul
 - Dijkstra solo funciona cuando ningún peso es negativo. Aquí no hay problema porque no existen kilómetros negativos.
 - Si hay dos rutas con la misma distancia, el programa muestra solo una.
 
-## Preguntas que nos pueden hacer en la exposición
-
-- **¿Para qué sirve `heapq`?** Para sacar siempre el pueblo más cercano de forma rápida, sin tener que revisar todos cada vez.
-- **¿Para qué sirve `anteriores`?** Dijkstra calcula distancias, y `anteriores` permite reconstruir por qué pueblos se pasó.
-- **¿Qué pasa si no hay camino entre dos pueblos?** La distancia del destino se queda en infinito y el programa avisa que no existe una ruta conectada.
-- **¿Qué complejidad tiene?** Con la cola de prioridad es O((V + E) log V), donde V es el número de pueblos y E el número de carreteras.
 
 ## Conclusión
 
