@@ -1,24 +1,3 @@
-"""PROYECTO INTEGRADOR DE ESTRUCTURAS DE DATOS
-
-Este es el ÚNICO archivo que hay que ejecutar. Abre un menú gráfico con los
-6 proyectos de la materia; cada botón abre la ventana de ese proyecto:
-
-    1. Navegador web ............ Pilas (LIFO)
-    2. Resistencias eléctricas .. Arreglos / tuplas y listas (ya traía Tkinter)
-    3. Cola de impresión ........ Colas (FIFO) de capacidad limitada
-    4. Carrito de compras ....... Listas de objetos y búsqueda
-    5. Directorio de alumnos .... Árbol binario de búsqueda
-    6. Ruta Mágica .............. Grafos ponderados + Dijkstra
-
-Uso:
-    python Main1.py            -> menú gráfico (Tkinter)
-    python Main1.py --consola  -> menú en la terminal que corre los programas
-                                 originales tal cual (con input/print)
-
-El código de cada proyecto está en la carpeta `proyectos/` SIN CAMBIOS, y las
-ventanas gráficas están en la carpeta `interfaz/` (solo usan esas clases).
-"""
-
 import subprocess
 import sys
 import tkinter as tk
@@ -28,7 +7,6 @@ from interfaz import estilos as e
 
 CARPETA_PROYECTOS = Path(__file__).resolve().parent / "proyectos"
 
-# (número, título, estructura, descripción corta)
 PROYECTOS = [
     (1, "Navegador web", "Pila (LIFO)",
      "Historial con botones Back y Forward usando dos pilas."),
@@ -45,7 +23,7 @@ PROYECTOS = [
 ]
 
 
-# =============================================================== MODO GRÁFICO
+#MODO GRÁFICO
 class MenuPrincipal:
     def __init__(self):
         self.raiz = tk.Tk()
@@ -54,7 +32,7 @@ class MenuPrincipal:
         self.raiz.configure(bg=e.FONDO)
         e.configurar_ttk(self.raiz)
 
-        self.ventanas = {}           # número de proyecto -> ventana abierta
+        self.ventanas = {}     
         self.proceso_resistencias = None
 
         tk.Label(self.raiz, text="Proyecto Integrador de Estructuras de Datos",
@@ -62,7 +40,7 @@ class MenuPrincipal:
         tk.Label(self.raiz, text="Selecciona un proyecto:", font=e.F_NORMAL,
                  bg=e.FONDO).pack(pady=(0, 8))
 
-        # Un botón por proyecto, uno debajo del otro
+        # Un botón por proyecto
         marco = tk.Frame(self.raiz, bg=e.FONDO)
         marco.pack()
         for numero, titulo, estructura, descripcion in PROYECTOS:
@@ -80,15 +58,13 @@ class MenuPrincipal:
                   command=self.raiz.destroy).pack(pady=6)
 
     def abrir(self, numero):
-        # El proyecto 2 ya era una ventana Tkinter completa: se ejecuta su
-        # archivo original tal cual, en su propio proceso.
         if numero == 2:
             if self.proceso_resistencias is None or self.proceso_resistencias.poll() is not None:
                 self.proceso_resistencias = subprocess.Popen(
                     [sys.executable, str(CARPETA_PROYECTOS / "p2_resistencias.py")])
             return
 
-        # Si la ventana ya está abierta, solo se trae al frente
+        
         abierta = self.ventanas.get(numero)
         if abierta is not None and abierta.ventana.winfo_exists():
             abierta.ventana.deiconify()
@@ -112,8 +88,6 @@ class MenuPrincipal:
     def ejecutar(self):
         self.raiz.mainloop()
 
-
-# ================================================================ MODO CONSOLA
 def menu_consola():
     """Corre los programas ORIGINALES en la terminal, tal como fueron entregados."""
     from proyectos import p1_navegador_web, p3_cola_impresion, p5_arbol_alumnos
